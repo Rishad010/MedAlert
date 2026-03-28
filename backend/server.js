@@ -18,7 +18,6 @@ import sendReminderJob from "./jobs/sendReminder.js";
 import checkStockExpiryJob from "./jobs/checkStockExpiry.js";
 import { rescheduleAllMedicines } from "./utils/scheduleReminders.js";
 
-
 dotenv.config();
 validateEnv();
 connectDB();
@@ -34,7 +33,7 @@ app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 100,
-  })
+  }),
 );
 
 // Routes
@@ -73,7 +72,10 @@ const startWorker = async () => {
       await rescheduleAllMedicines();
       console.log("✅ All medicine reminders rescheduled");
     } catch (error) {
-      console.error("⚠️ Error rescheduling medicines (non-critical):", error.message);
+      console.error(
+        "⚠️ Error rescheduling medicines (non-critical):",
+        error.message,
+      );
     }
   } catch (error) {
     console.error("❌ Error starting Agenda worker:", error);
