@@ -3,7 +3,7 @@
 A full-stack MERN application that helps users manage their medication schedules,
 track stock levels, and receive multi-channel reminders before doses are missed.
 
-**Live demo:** https://medalert.vercel.app
+**Live demo:** https://med-alert-delta.vercel.app
 
 ---
 
