@@ -1,4 +1,5 @@
-// worker.js
+// worker.js — optional standalone Agenda process (e.g. second dyno / PM2 worker).
+// Default deploy (Render single Web Service): Agenda runs inside server.js instead — do not run both.
 import dotenv from "dotenv";
 import { validateEnv } from "./config/validateEnv.js";
 import connectDB from "./config/db.js";

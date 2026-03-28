@@ -1,12 +1,16 @@
 // backend/routes/authRoutes.js
 import express from "express";
-import { registerUser, loginUser, getMe } from "../controllers/authController.js";
+import {
+  registerUser,
+  loginUser,
+  getMe,
+} from "../controllers/authController.js";
 import { protect } from "../middleware/authMiddleware.js";
 import {
-    registerRules,
-    loginRules,
-    validate,
-  } from "../middleware/validationMiddleware.js";
+  registerRules,
+  loginRules,
+  validate,
+} from "../middleware/validationMiddleware.js";
 
 const router = express.Router();
 

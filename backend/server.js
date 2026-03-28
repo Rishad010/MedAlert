@@ -1,4 +1,5 @@
 // backend/server.js
+// Single process: Express API + Agenda jobs (ideal for Render free tier — one Web Service).
 import express from "express";
 import dotenv from "dotenv";
 import { validateEnv } from "./config/validateEnv.js";
@@ -7,6 +8,7 @@ import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import connectDB from "./config/db.js";
+import agenda from "./config/agenda.js";
 import authRoutes from "./routes/authRoutes.js";
 import medicineRoutes from "./routes/medicineRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
@@ -20,7 +22,7 @@ import { rescheduleAllMedicines } from "./utils/scheduleReminders.js";
 
 dotenv.config();
 validateEnv();
-connectDB();
+await connectDB();
 
 const app = express();
 
@@ -36,6 +38,11 @@ app.use(
   }),
 );
 
+// Health check (before 404 handler)
+app.get("/", (req, res) => {
+  res.send("MedAlert API is running...");
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/medicines", medicineRoutes);
@@ -45,28 +52,21 @@ app.use("/api/pharmacy", pharmacyRoutes);
 app.use("/api/push", pushRoutes);
 app.use(notFound);
 app.use(errorHandler);
-// Root check
-app.get("/", (req, res) => {
-  res.send("MedAlert API is running...");
-});
 
-const startWorker = async () => {
+const startAgendaInProcess = async () => {
   try {
-    // Register job definitions
     sendReminderJob(agenda);
     checkStockExpiryJob(agenda);
 
     await agenda.start();
-    console.log("✅ Agenda worker started inside API process");
+    console.log("✅ Agenda started (same process as API — OK for single-instance deploy)");
 
-    // Schedule daily stock/expiry check if not already scheduled
     const jobs = await agenda.jobs({ name: "check-stock-expiry" });
     if (jobs.length === 0) {
       await agenda.every("24 hours", "check-stock-expiry");
       console.log("🗓️ Scheduled daily stock/expiry check");
     }
 
-    // Reschedule all medicine reminders on startup
     console.log("🔄 Rescheduling all medicine reminders...");
     try {
       await rescheduleAllMedicines();
@@ -78,15 +78,16 @@ const startWorker = async () => {
       );
     }
   } catch (error) {
-    console.error("❌ Error starting Agenda worker:", error);
+    console.error("❌ Error starting Agenda:", error);
   }
 };
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   console.log(`🚀 Server running on port ${PORT}`);
-  await startWorker();
+  // Brief pause so Mongo connection is fully ready (matches worker.js pattern)
+  await new Promise((r) => setTimeout(r, 1000));
+  await startAgendaInProcess();
 });
 
 const shutdown = async (signal) => {

@@ -12,11 +12,13 @@ import { medicineRules, validate } from "../middleware/validationMiddleware.js";
 
 const router = express.Router();
 
-router.route("/")
+router
+  .route("/")
   .get(protect, getMedicines)
   .post(protect, medicineRules, validate, createMedicine);
 
-router.route("/reschedule-reminders")
+router
+  .route("/reschedule-reminders")
   .post(protect, medicineRules, validate, rescheduleAllReminders);
 
 router

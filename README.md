@@ -43,7 +43,7 @@ track stock levels, and receive multi-channel reminders before doses are missed.
 cd backend
 cp .env.example .env   # fill in your values
 npm install
-npm run dev:all        # starts API + worker together
+npm run dev            # API + Agenda in one process (same as production)
 ```
 
 ### Frontend

@@ -3,19 +3,19 @@ import mongoose from "mongoose";
 const orderItemSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Product"
+    ref: "Product",
   },
   sku: String,
   name: String,
   quantity: Number,
-  price: Number
+  price: Number,
 });
 
 const orderSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
     customerName: String,
     phone: String,
@@ -23,25 +23,25 @@ const orderSchema = new mongoose.Schema(
       line1: String,
       city: String,
       state: String,
-      pincode: String
+      pincode: String,
     },
     items: [orderItemSchema],
     totalAmount: Number,
     paymentMethod: {
       type: String,
-      default: "COD"
+      default: "COD",
     },
     status: {
       type: String,
       enum: ["Received", "Packed", "Shipped", "Delivered"],
-      default: "Received"
+      default: "Received",
     },
     prescription: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Prescription"
-    }
+      ref: "Prescription",
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Order = mongoose.model("Order", orderSchema);
