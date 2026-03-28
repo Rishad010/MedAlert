@@ -1,12 +1,6 @@
 import express from "express";
 import {
   getProducts,
-  placeOrder,
-  getOrders,
-  updateOrderStatus,
-} from "../controllers/pharmacyController.js";
-
-import {
   createOrder,
   getOrders,
   updateOrderStatus,
