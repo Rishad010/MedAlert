@@ -21,7 +21,10 @@ const REQUIRED_VARS = [
     // Warn about optional vars that affect features
     const optional = [
       { key: "GMAIL_USER", feature: "email notifications" },
-      { key: "GMAIL_APP_PASSWORD", feature: "email notifications" },
+      //{ key: "GMAIL_APP_PASSWORD", feature: "email notifications" },
+      { key: "GMAIL_CLIENT_ID", feature: "email notifications" },
+      { key: "GMAIL_CLIENT_SECRET", feature: "email notifications" },
+      { key: "GMAIL_REFRESH_TOKEN", feature: "email notifications" },
       { key: "TWILIO_ACCOUNT_SID", feature: "SMS notifications" },
       { key: "TWILIO_AUTH_TOKEN", feature: "SMS notifications" },
       { key: "TWILIO_PHONE", feature: "SMS notifications" },
