@@ -25,6 +25,7 @@ validateEnv();
 await connectDB();
 
 const app = express();
+app.set("trust proxy", 1); // 👈 add this — tells Express to trust Render's proxy
 
 // Middleware
 app.use(express.json());
