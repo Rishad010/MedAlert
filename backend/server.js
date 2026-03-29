@@ -95,6 +95,17 @@ app.listen(PORT, async () => {
   // Brief pause so Mongo connection is fully ready (matches worker.js pattern)
   await new Promise((r) => setTimeout(r, 1000));
   await startAgendaInProcess();
+  if (process.env.RENDER_EXTERNAL_URL) {
+    setInterval(async () => {
+      try {
+        await fetch(`${process.env.RENDER_EXTERNAL_URL}/`);
+        console.log("🏓 Keep-alive ping sent");
+      } catch (err) {
+        console.error("❌ Keep-alive ping failed:", err.message);
+      }
+    }, 10 * 60 * 1000); // every 10 minutes
+    console.log("🏓 Keep-alive pinger started");
+  }
 });
 
 const shutdown = async (signal) => {
