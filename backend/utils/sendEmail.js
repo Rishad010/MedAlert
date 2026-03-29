@@ -18,7 +18,7 @@ const createTransporter = async () => {
   const oauth2Client = new OAuth2(
     process.env.GMAIL_CLIENT_ID,
     process.env.GMAIL_CLIENT_SECRET,
-    "https://developers.google.com/oauthplayground"
+    "https://developers.google.com/oauthplayground",
   );
 
   oauth2Client.setCredentials({
@@ -51,7 +51,9 @@ export const sendEmail = async (to, subject, text) => {
     const transporter = await createTransporter();
 
     if (!transporter) {
-      console.warn("⚠️ Email not sent — Gmail OAuth2 credentials not configured");
+      console.warn(
+        "⚠️ Email not sent — Gmail OAuth2 credentials not configured",
+      );
       return;
     }
 
