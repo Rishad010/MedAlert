@@ -97,3 +97,9 @@
 {"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 9.085 ms - -\u001b[0m","timestamp":"2026-04-02 12:05:50"}
 {"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 96.516 ms - 275\u001b[0m","timestamp":"2026-04-02 12:05:56"}
 {"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 4.801 ms - 2360\u001b[0m","timestamp":"2026-04-02 12:05:59"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 4.943 ms - -\u001b[0m","timestamp":"2026-04-02 12:06:27"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[32m200\u001b[0m 4.877 ms - 149\u001b[0m","timestamp":"2026-04-02 12:06:47"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 4.020 ms - -\u001b[0m","timestamp":"2026-04-02 12:06:47"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 5.271 ms - -\u001b[0m","timestamp":"2026-04-02 12:06:47"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 71.328 ms - 270\u001b[0m","timestamp":"2026-04-02 12:06:54"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 11.252 ms - -\u001b[0m","timestamp":"2026-04-02 12:06:54"}
