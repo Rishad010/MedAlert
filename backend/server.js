@@ -20,6 +20,7 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import sendReminderJob from "./jobs/sendReminder.js";
 import checkStockExpiryJob from "./jobs/checkStockExpiry.js";
 import { rescheduleAllMedicines } from "./utils/scheduleReminders.js";
+import logger from "./utils/logger.js";
 
 dotenv.config();
 validateEnv();
@@ -30,15 +31,23 @@ app.set("trust proxy", 1); // 👈 add this — tells Express to trust Render's 
 
 // Middleware
 app.use(express.json());
-app.use(cors({
-  origin: [
-    "http://localhost:5173",                    // local dev
-    "https://med-alert-delta.vercel.app",         // your Vercel URL
-  ],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // local dev
+      "https://med-alert-delta.vercel.app", // your Vercel URL
+    ],
+    credentials: true,
+  }),
+);
 app.use(helmet());
-app.use(morgan("dev"));
+app.use(
+  morgan("dev", {
+    stream: {
+      write: (message) => logger.http(message.trim()),
+    },
+  }),
+);
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -68,56 +77,57 @@ const startAgendaInProcess = async () => {
     checkStockExpiryJob(agenda);
 
     await agenda.start();
-    console.log("✅ Agenda started (same process as API — OK for single-instance deploy)");
+    logger.info("Agenda started (same process as API)");
 
     const jobs = await agenda.jobs({ name: "check-stock-expiry" });
     if (jobs.length === 0) {
       await agenda.every("24 hours", "check-stock-expiry");
-      console.log("🗓️ Scheduled daily stock/expiry check");
+      logger.info("Scheduled daily stock/expiry check");
     }
 
-    console.log("🔄 Rescheduling all medicine reminders...");
+    logger.info("Rescheduling all medicine reminders...");
     try {
       await rescheduleAllMedicines();
-      console.log("✅ All medicine reminders rescheduled");
+      logger.info("All medicine reminders rescheduled");
     } catch (error) {
-      console.error(
-        "⚠️ Error rescheduling medicines (non-critical):",
-        error.message,
+      logger.warn(
+        `Error rescheduling medicines (non-critical): ${error.message}`,
       );
     }
   } catch (error) {
-    console.error("❌ Error starting Agenda:", error);
+    logger.error(error);
   }
 };
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  // Brief pause so Mongo connection is fully ready (matches worker.js pattern)
+  logger.info(`Server running on port ${PORT}`);
   await new Promise((r) => setTimeout(r, 1000));
   await startAgendaInProcess();
   if (process.env.RENDER_EXTERNAL_URL) {
-    setInterval(async () => {
-      try {
-        await fetch(`${process.env.RENDER_EXTERNAL_URL}/`);
-        console.log("🏓 Keep-alive ping sent");
-      } catch (err) {
-        console.error("❌ Keep-alive ping failed:", err.message);
-      }
-    }, 10 * 60 * 1000); // every 10 minutes
-    console.log("🏓 Keep-alive pinger started");
+    setInterval(
+      async () => {
+        try {
+          await fetch(`${process.env.RENDER_EXTERNAL_URL}/`);
+          logger.info("Keep-alive ping sent");
+        } catch (err) {
+          logger.error(`Keep-alive ping failed: ${err.message}`);
+        }
+      },
+      10 * 60 * 1000,
+    );
+    logger.info("Keep-alive pinger started");
   }
 });
 
 const shutdown = async (signal) => {
-  console.log(`\n⚠️  ${signal} received. Shutting down...`);
+  logger.warn(`${signal} received. Shutting down...`);
   try {
     await agenda.stop();
-    console.log("✅ Agenda stopped cleanly.");
+    logger.info("Agenda stopped cleanly.");
     process.exit(0);
   } catch (err) {
-    console.error("❌ Shutdown error:", err.message);
+    logger.error(`Shutdown error: ${err.message}`);
     process.exit(1);
   }
 };

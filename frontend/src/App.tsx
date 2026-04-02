@@ -12,6 +12,7 @@ import { EditMedicine } from "./pages/EditMedicine";
 import { Reminders } from "./pages/Reminders";
 import AdminDashboard from "./components/AdminDashboard";
 import { Pharmacy } from "./pages/Pharmacy";
+import Settings from "./pages/Settings";
 
 
 // Blocks unauthenticated users — redirects to /login
@@ -66,6 +67,7 @@ function App() {
           <Route path="medicines/:id/edit" element={<EditMedicine />} />
           <Route path="reminders" element={<Reminders />} />
           <Route path="pharmacy" element={<Pharmacy />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
 
         {/* Admin-only routes */}

@@ -40,6 +40,15 @@ export const authAPI = {
   login: (email: string, password: string) => api.post('/auth/login', { email, password }),
   register: (name: string, email: string, password: string) => api.post('/auth/register', { name, email, password }),
   me: () => api.get('/auth/me'),
+  updateProfile: (data: {        // add this
+    name?: string;
+    phone?: string;
+    notifications?: {
+      email?: boolean;
+      push?: boolean;
+      sms?: boolean;
+    };
+  }) => api.patch('/auth/profile', data),
 }
 
 export const medicinesAPI = {
@@ -78,3 +87,9 @@ export const pharmacyAPI = {
   updateOrderStatus: (id: string, status: string) =>
     api.put(`/pharmacy/orders/${id}/status`, { status }),
 }
+
+export const pushAPI = {
+  subscribe: (subscription: PushSubscriptionJSON) =>
+    api.post("/push/subscribe", { subscription }),
+  unsubscribe: () => api.delete("/push/unsubscribe"),
+};

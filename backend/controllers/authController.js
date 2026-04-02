@@ -81,3 +81,41 @@ export const getMe = async (req, res, next) => {
     next(err);
   }
 };
+
+// @desc  Update profile (name, phone, notification prefs)
+// @route PATCH /api/auth/profile
+// @access Private
+export const updateProfile = async (req, res, next) => {
+  try {
+    const { name, phone, notifications } = req.body;
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (name !== undefined) user.name = name;
+    if (phone !== undefined) user.phone = phone;
+    if (notifications !== undefined) {
+      if (notifications.email !== undefined)
+        user.notifications.email = notifications.email;
+      if (notifications.push !== undefined)
+        user.notifications.push = notifications.push;
+      if (notifications.sms !== undefined)
+        user.notifications.sms = notifications.sms;
+    }
+
+    await user.save();
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      phone: user.phone,
+      notifications: user.notifications,
+    });
+  } catch (err) {
+    next(err);
+  }
+};

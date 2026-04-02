@@ -48,3 +48,29 @@ export const medicineRules = [
       return true;
     }),
 ];
+
+// Profile / settings update rules
+export const updateProfileRules = [
+  body("name")
+    .optional()
+    .trim()
+    .notEmpty()
+    .withMessage("Name cannot be empty"),
+  body("phone")
+    .optional()
+    .trim()
+    .matches(/^\+?[0-9\s\-]{7,15}$/)
+    .withMessage("Enter a valid phone number"),
+  body("notifications.email")
+    .optional()
+    .isBoolean()
+    .withMessage("notifications.email must be a boolean"),
+  body("notifications.push")
+    .optional()
+    .isBoolean()
+    .withMessage("notifications.push must be a boolean"),
+  body("notifications.sms")
+    .optional()
+    .isBoolean()
+    .withMessage("notifications.sms must be a boolean"),
+];

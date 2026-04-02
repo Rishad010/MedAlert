@@ -11,8 +11,9 @@ export const getProducts = async (req, res, next) => {
       name: 1,
     });
     res.json(products);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    console.error(error);
+    next(error);
   }
 };
 
@@ -76,7 +77,7 @@ export const createOrder = async (req, res, next) => {
     res.status(201).json(order);
   } catch (error) {
     console.error(error);
-    next(err);
+    next(error);
   }
 };
 

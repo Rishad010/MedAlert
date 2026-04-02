@@ -13,6 +13,12 @@ interface User {
   name: string;
   email: string;
   role: "user" | "admin"; // 👈 added
+  phone?: string;                      // add
+  notifications?: {                    // add
+    email: boolean;
+    push: boolean;
+    sms: boolean;
+  };
 }
 
 interface AuthContextType {
@@ -21,6 +27,7 @@ interface AuthContextType {
   isAdmin: boolean;         // 👈 added — convenience flag for route guards & UI
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
+  updateUser: (updated: Partial<User>) => void;
   logout: () => void;
 }
 
@@ -85,11 +92,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
+  const updateUser = (updated: Partial<User>) => {
+    setUser((prev) => (prev ? { ...prev, ...updated } : prev));
+  };
+
   // Derived — no extra state needed, just reads user.role
   const isAdmin = user?.role === "admin"; // 👈 added
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAdmin, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, isAdmin, login, register, logout, updateUser }}>
       {children}
     </AuthContext.Provider>
   );

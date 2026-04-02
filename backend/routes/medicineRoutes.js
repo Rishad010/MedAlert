@@ -19,11 +19,11 @@ router
 
 router
   .route("/reschedule-reminders")
-  .post(protect, medicineRules, validate, rescheduleAllReminders);
+  .post(protect, rescheduleAllReminders);
 
 router
   .route("/:id")
   .put(protect, medicineRules, validate, updateMedicine)
-  .delete(protect, medicineRules, validate, deleteMedicine);
+  .delete(protect, deleteMedicine);
 
 export default router;
