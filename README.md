@@ -1,3 +1,5 @@
+[![CI](https://github.com/Rishad010/MedAlert/actions/workflows/ci.yml/badge.svg)](https://github.com/Rishad010/MedAlert/actions/workflows/ci.yml)
+
 # MedAlert — Smart Medicine Reminder & Stock Alert
 
 A full-stack MERN application that helps users manage medication schedules,
