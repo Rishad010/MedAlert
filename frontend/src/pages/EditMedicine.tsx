@@ -27,10 +27,7 @@ export function EditMedicine() {
 
   const { data: medicine, isLoading } = useQuery({
     queryKey: ["medicine", id],
-    queryFn: () =>
-      medicinesAPI
-        .getAll()
-        .then((res) => res.data.find((m: any) => m._id === id)),
+    queryFn: () => medicinesAPI.getById(id!).then((res) => res.data),
     enabled: !!id,
   });
 

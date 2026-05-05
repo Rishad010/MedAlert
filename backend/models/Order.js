@@ -36,6 +36,18 @@ const orderSchema = new mongoose.Schema(
       enum: ["Received", "Packed", "Shipped", "Delivered"],
       default: "Received",
     },
+    tracking: {
+      courier: {
+        type: String,
+        trim: true,
+        maxlength: 100,
+      },
+      trackingId: {
+        type: String,
+        trim: true,
+        maxlength: 120,
+      },
+    },
     prescription: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Prescription",

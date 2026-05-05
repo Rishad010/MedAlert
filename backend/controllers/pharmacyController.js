@@ -97,14 +97,24 @@ export const getOrders = async (req, res, next) => {
  * UPDATE ORDER STATUS (ADMIN)
  */
 export const updateOrderStatus = async (req, res, next) => {
-  const { status } = req.body;
+  const { status, courier, trackingId } = req.body;
 
   const order = await Order.findById(req.params.id);
   if (!order) {
     return res.status(404).json({ message: "Order not found" });
   }
 
-  order.status = status;
+  if (status) {
+    order.status = status;
+  }
+
+  if (courier !== undefined || trackingId !== undefined) {
+    order.tracking = {
+      courier: courier?.trim() || undefined,
+      trackingId: trackingId?.trim() || undefined,
+    };
+  }
+
   await order.save();
 
   res.json(order);

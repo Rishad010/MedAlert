@@ -20,6 +20,7 @@ export function validateEnv() {
 
   // Warn about optional vars that affect features
   const optional = [
+    { key: "CLIENT_URL", feature: "frontend CORS origin in production" },
     { key: "GMAIL_USER", feature: "email notifications" },
     //   { key: "GMAIL_APP_PASSWORD", feature: "email notifications" },
     //   { key: "GMAIL_CLIENT_ID", feature: "email notifications" },
@@ -30,6 +31,7 @@ export function validateEnv() {
     { key: "TWILIO_AUTH_TOKEN", feature: "SMS notifications" },
     { key: "TWILIO_PHONE", feature: "SMS notifications" },
     { key: "SENDGRID_API_KEY", feature: "SendGrid email" },
+    { key: "GEMINI_API_KEY", feature: "AI medicine assistant" },
   ];
 
   const missingOptional = optional.filter(

@@ -21,22 +21,19 @@ import sendReminderJob from "./jobs/sendReminder.js";
 import checkStockExpiryJob from "./jobs/checkStockExpiry.js";
 import { rescheduleAllMedicines } from "./utils/scheduleReminders.js";
 import logger from "./utils/logger.js";
+import assistantRoutes from "./routes/assistantRoutes.js";
 
 dotenv.config();
-validateEnv();
-await connectDB();
+const isTestEnv = process.env.NODE_ENV === "test";
 
-const app = express();
+export const app = express();
 app.set("trust proxy", 1); // 👈 add this — tells Express to trust Render's proxy
 
 // Middleware
 app.use(express.json());
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173", // local dev
-      "https://med-alert-delta.vercel.app", // your Vercel URL
-    ],
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -68,6 +65,7 @@ app.use("/api/reminders", reminderRoutes);
 app.use("/api/pharmacy", pharmacyRoutes);
 app.use("/api/push", pushRoutes);
 app.use("/api/test", testRoutes);
+app.use("/api/assistant", assistantRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
@@ -100,25 +98,30 @@ const startAgendaInProcess = async () => {
 };
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
-  logger.info(`Server running on port ${PORT}`);
-  await new Promise((r) => setTimeout(r, 1000));
-  await startAgendaInProcess();
-  if (process.env.RENDER_EXTERNAL_URL) {
-    setInterval(
-      async () => {
-        try {
-          await fetch(`${process.env.RENDER_EXTERNAL_URL}/`);
-          logger.info("Keep-alive ping sent");
-        } catch (err) {
-          logger.error(`Keep-alive ping failed: ${err.message}`);
-        }
-      },
-      10 * 60 * 1000,
-    );
-    logger.info("Keep-alive pinger started");
-  }
-});
+if (!isTestEnv) {
+  validateEnv();
+  await connectDB();
+
+  app.listen(PORT, async () => {
+    logger.info(`Server running on port ${PORT}`);
+    await new Promise((r) => setTimeout(r, 1000));
+    await startAgendaInProcess();
+    if (process.env.RENDER_EXTERNAL_URL) {
+      setInterval(
+        async () => {
+          try {
+            await fetch(`${process.env.RENDER_EXTERNAL_URL}/`);
+            logger.info("Keep-alive ping sent");
+          } catch (err) {
+            logger.error(`Keep-alive ping failed: ${err.message}`);
+          }
+        },
+        10 * 60 * 1000,
+      );
+      logger.info("Keep-alive pinger started");
+    }
+  });
+}
 
 const shutdown = async (signal) => {
   logger.warn(`${signal} received. Shutting down...`);
@@ -134,3 +137,5 @@ const shutdown = async (signal) => {
 
 process.on("SIGTERM", () => shutdown("SIGTERM"));
 process.on("SIGINT", () => shutdown("SIGINT"));
+
+export default app;

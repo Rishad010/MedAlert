@@ -13,7 +13,7 @@ import { Reminders } from "./pages/Reminders";
 import AdminDashboard from "./components/AdminDashboard";
 import { Pharmacy } from "./pages/Pharmacy";
 import Settings from "./pages/Settings";
-
+import Assistant from "./pages/Assistant";
 
 // Blocks unauthenticated users — redirects to /login
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -67,6 +67,7 @@ function App() {
           <Route path="medicines/:id/edit" element={<EditMedicine />} />
           <Route path="reminders" element={<Reminders />} />
           <Route path="pharmacy" element={<Pharmacy />} />
+          <Route path="assistant" element={<Assistant />} />
           <Route path="settings" element={<Settings />} />
         </Route>
 

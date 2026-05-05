@@ -53,6 +53,7 @@ export const authAPI = {
 
 export const medicinesAPI = {
   getAll: () => api.get('/medicines'),
+  getById: (id: string) => api.get(`/medicines/${id}`),
   create: (data: any) => api.post('/medicines', data),
   update: (id: string, data: any) => api.put(`/medicines/${id}`, data),
   delete: (id: string) => api.delete(`/medicines/${id}`),
@@ -92,4 +93,10 @@ export const pushAPI = {
   subscribe: (subscription: PushSubscriptionJSON) =>
     api.post("/push/subscribe", { subscription }),
   unsubscribe: () => api.delete("/push/unsubscribe"),
+};
+
+export const assistantAPI = {
+  // Streaming is handled directly with fetch in the component,
+  // but we export the URL helper for consistency
+  chatUrl: () => `${API_BASE_URL}/assistant/chat`,
 };

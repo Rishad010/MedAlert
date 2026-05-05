@@ -139,7 +139,7 @@ npm run seed           # inserts 12 sample products into MongoDB
 | `VAPID_PUBLIC_KEY` | ✅ | VAPID public key for web push |
 | `VAPID_PRIVATE_KEY` | ✅ | VAPID private key for web push |
 | `VAPID_SUBJECT` | ✅ | `mailto:you@example.com` |
-| `FRONTEND_URL` | ✅ | Vercel frontend URL — added to CORS allowlist |
+| `CLIENT_URL` | Recommended (✅ in production) | Frontend deployment URL used by backend CORS (e.g. `https://your-app.vercel.app`) |
 | `RENDER_EXTERNAL_URL` | ✅ on Render | Enables keep-alive self-ping on Render free tier |
 | `RESEND_API_KEY` | Optional | Resend API key — enables email notifications |
 | `TWILIO_ACCOUNT_SID` | Optional | Twilio — enables SMS notifications |
@@ -189,4 +189,4 @@ The app is deployed across three services:
 - **Render** — free Web Service running `node server.js`; Agenda runs in-process
 - **Vercel** — frontend static build; `VITE_API_URL` points to the Render service
 
-CORS is configured with an explicit origin allowlist (`localhost:5173` + `FRONTEND_URL`). The backend rejects requests from unlisted origins.
+CORS uses `CLIENT_URL` (with local fallback `http://localhost:5173`). In production, set `CLIENT_URL` to your frontend deployment URL so browser requests are allowed.

@@ -1,7 +1,7 @@
 // frontend/src/components/Layout.tsx
 import React from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { Home, Pill, Bell, LogOut, Menu, X, ShoppingBag, ShieldCheck, Settings } from "lucide-react"; // 👈 added ShoppingBag, ShieldCheck
+import { Home, Pill, Bell, LogOut, Menu, X, ShoppingBag, ShieldCheck, Settings, Bot } from "lucide-react"; // 👈 added ShoppingBag, ShieldCheck
 import { useAuth } from "../contexts/AuthContext";
 
 export function Layout() {
@@ -15,6 +15,7 @@ export function Layout() {
     { name: "Medicines", href: "/medicines", icon: Pill },
     { name: "Reminders", href: "/reminders", icon: Bell },
     { name: "Pharmacy", href: "/pharmacy", icon: ShoppingBag },
+    { name: "MedBot", href: "/assistant", icon: Bot },
     { name: "Settings", href: "/settings", icon: Settings },
     ...(isAdmin ? [{ name: "Admin", href: "/admin", icon: ShieldCheck }] : []),
   ];

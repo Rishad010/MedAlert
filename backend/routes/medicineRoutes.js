@@ -2,6 +2,7 @@
 import express from "express";
 import {
   getMedicines,
+  getMedicineById,
   createMedicine,
   updateMedicine,
   deleteMedicine,
@@ -23,6 +24,7 @@ router
 
 router
   .route("/:id")
+  .get(protect, getMedicineById)
   .put(protect, medicineRules, validate, updateMedicine)
   .delete(protect, deleteMedicine);
 

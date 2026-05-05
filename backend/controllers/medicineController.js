@@ -18,6 +18,21 @@ export const getMedicines = async (req, res, next) => {
   }
 };
 
+// @desc Get a single medicine by ID for logged-in user
+export const getMedicineById = async (req, res, next) => {
+  try {
+    const medicine = await Medicine.findById(req.params.id);
+
+    if (!medicine) return res.status(404).json({ message: "Not found" });
+    if (medicine.user.toString() !== req.user._id.toString())
+      return res.status(404).json({ message: "Not found" });
+
+    res.json(medicine);
+  } catch (err) {
+    next(err);
+  }
+};
+
 // // @desc Create a new medicine
 // export const createMedicine = async (req, res) => {
 //   try {

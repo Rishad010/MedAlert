@@ -5,8 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import "./style.css";
 import { Toaster } from "react-hot-toast";
-<Toaster position="top-right" />
-
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +20,7 @@ ReactDOM.createRoot(document.getElementById("app")!).render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <App />
+        <Toaster position="top-right" />
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
