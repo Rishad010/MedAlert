@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Pill, Eye, EyeOff, Info, X } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -112,7 +112,6 @@ export function Login() {
               </label>
               <input
                 id="email"
-                name="email"
                 type="email"
                 autoComplete="email"
                 required
@@ -127,7 +126,6 @@ export function Login() {
               </label>
               <input
                 id="password"
-                name="password"
                 type={showPassword ? "text" : "password"}
                 autoComplete="current-password"
                 required

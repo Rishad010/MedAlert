@@ -14,7 +14,6 @@ export function AdminStockAlerts() {
   const rows = useMemo(() => {
     const list = (data || []).map((item: any) => {
       const d = daysUntil(item.expiryDate);
-      const lowStock = item.stock <= 10;
       const expiringSoon = d <= 30;
       const critical = item.stock <= 3 || d <= 7;
       let alertType = "Low Stock";
