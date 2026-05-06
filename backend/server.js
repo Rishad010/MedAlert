@@ -34,7 +34,7 @@ app.set("trust proxy", 1); // 👈 add this — tells Express to trust Render's 
 app.use(express.json());
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   }),
 );
