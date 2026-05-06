@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Pill, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
+import { BackToLanding } from "../components/BackToLanding";
 
 export function Register() {
   const [formData, setFormData] = useState({
@@ -52,7 +53,9 @@ export function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <>
+      <BackToLanding />
+      <div className="flex min-h-screen items-center justify-center bg-primary-50 py-12 px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <div className="flex justify-center">
@@ -203,5 +206,6 @@ export function Register() {
         </form>
       </div>
     </div>
+    </>
   );
 }

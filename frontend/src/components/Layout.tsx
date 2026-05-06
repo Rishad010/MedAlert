@@ -29,7 +29,7 @@ export function Layout() {
 
   // Everything below this line is UNCHANGED — copy your existing JSX as-is
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-primary-50">
       {/* Mobile sidebar */}
       <div
         className={`fixed inset-0 z-50 lg:hidden ${
@@ -37,10 +37,10 @@ export function Layout() {
         }`}
       >
         <div
-          className="fixed inset-0 bg-gray-600 bg-opacity-75"
+          className="fixed inset-0 bg-emerald-950/40 backdrop-blur-[2px]"
           onClick={() => setSidebarOpen(false)}
         />
-        <div className="relative flex w-full max-w-xs flex-1 flex-col bg-white">
+        <div className="relative flex w-full max-w-xs flex-1 flex-col border-r border-emerald-200/60 bg-white/95 shadow-[4px_0_24px_-8px_rgba(15,110,86,0.12)] backdrop-blur-md">
           <div className="absolute top-0 right-0 -mr-12 pt-2">
             <button
               type="button"
@@ -72,9 +72,9 @@ export function Layout() {
                     }}
                     className={`${
                       isActive(item.href)
-                        ? "bg-primary-100 text-primary-700"
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                    } group flex w-full items-center px-2 py-2 text-base font-medium rounded-md`}
+                        ? "bg-primary-100 text-primary-800 shadow-sm ring-1 ring-primary-200/60"
+                        : "text-gray-600 hover:bg-primary-50/90 hover:text-primary-900"
+                    } group flex w-full items-center px-2 py-2 text-base font-medium rounded-md transition-colors`}
                   >
                     <Icon className="mr-4 h-6 w-6" />
                     {item.name}
@@ -83,11 +83,11 @@ export function Layout() {
               })}
             </nav>
           </div>
-          <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
+          <div className="flex flex-shrink-0 border-t border-emerald-100/80 bg-primary-50/50 p-4">
             <div className="group block flex-shrink-0">
               <div className="flex items-center">
                 <div className="ml-3">
-                  <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">
+                  <p className="text-base font-medium text-gray-700 group-hover:text-primary-900">
                     {user?.name}
                   </p>
                   <p className="text-sm font-medium text-gray-500 group-hover:text-gray-700">
@@ -102,7 +102,7 @@ export function Layout() {
 
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex min-h-0 flex-1 flex-col bg-white border-r border-gray-200">
+        <div className="flex min-h-0 flex-1 flex-col border-r border-emerald-200/60 bg-white/90 shadow-[4px_0_30px_-10px_rgba(15,110,86,0.15)] backdrop-blur-md">
           <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
             <div className="flex flex-shrink-0 items-center px-4">
               <div className="flex items-center">
@@ -121,9 +121,9 @@ export function Layout() {
                     onClick={() => navigate(item.href)}
                     className={`${
                       isActive(item.href)
-                        ? "bg-primary-100 text-primary-700"
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                    } group flex w-full items-center px-2 py-2 text-sm font-medium rounded-md`}
+                        ? "bg-primary-100 text-primary-800 shadow-sm ring-1 ring-primary-200/60"
+                        : "text-gray-600 hover:bg-primary-50/90 hover:text-primary-900"
+                    } group flex w-full items-center px-2 py-2 text-sm font-medium rounded-md transition-colors`}
                   >
                     <Icon className="mr-3 h-6 w-6" />
                     {item.name}
@@ -134,18 +134,18 @@ export function Layout() {
           </div>
 
           {/* User info + sign out — unchanged */}
-          <div className="flex flex-shrink-0 border-t border-gray-200 p-4">
+          <div className="flex flex-shrink-0 border-t border-emerald-100/80 bg-primary-50/40 p-4">
             <div className="group block w-full flex-shrink-0">
               <div className="flex items-center">
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                  <p className="text-sm font-medium text-gray-700 group-hover:text-primary-900">
                     {user?.name}
                   </p>
                   <p className="text-xs font-medium text-gray-500 group-hover:text-gray-700">
                     {user?.email}
                   </p>
                   {isAdmin && ( // 👈 subtle admin badge in the sidebar footer
-                    <span className="mt-1 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-700">
+                    <span className="mt-1 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 ring-1 ring-primary-200/50">
                       Admin
                     </span>
                   )}
@@ -153,7 +153,7 @@ export function Layout() {
               </div>
               <button
                 onClick={handleLogout}
-                className="mt-2 flex w-full items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md"
+                className="mt-2 flex w-full items-center px-2 py-2 text-sm font-medium text-gray-600 hover:bg-primary-100/60 hover:text-primary-900 rounded-md transition-colors"
               >
                 <LogOut className="mr-3 h-5 w-5" />
                 Sign out
@@ -165,10 +165,10 @@ export function Layout() {
 
       {/* Main content — completely unchanged */}
       <div className="lg:pl-64 flex flex-col flex-1">
-        <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow lg:hidden">
+        <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 border-b border-emerald-100/80 bg-white/85 shadow-[0_8px_24px_-12px_rgba(15,110,86,0.12)] backdrop-blur-xl lg:hidden">
           <button
             type="button"
-            className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 lg:hidden"
+            className="border-r border-emerald-100/80 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500 lg:hidden"
             onClick={() => setSidebarOpen(true)}
             aria-label="Open sidebar"
           >
@@ -186,7 +186,7 @@ export function Layout() {
             <div className="ml-4 flex items-center md:ml-6">
               <button
                 onClick={handleLogout}
-                className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                className="rounded-full bg-primary-50/80 p-1 text-gray-500 hover:text-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 aria-label="Sign out"
               >
                 <LogOut className="h-6 w-6" />

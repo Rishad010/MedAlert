@@ -236,7 +236,7 @@ export function Reminders() {
                     return (
                       <div
                         key={reminder._id}
-                        className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                        className="flex items-center justify-between rounded-lg border border-emerald-100/60 bg-primary-50/70 p-4"
                       >
                         <div className="flex items-center flex-1">
                           <div className="flex-shrink-0 mr-4">

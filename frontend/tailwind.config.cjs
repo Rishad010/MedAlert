@@ -4,17 +4,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        /** MedAlert brand — matches landing (#0f6e56) */
         primary: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
+          50: "#f4faf8",
+          100: "#d9f0e8",
+          200: "#b3e1d1",
+          300: "#7dccb0",
+          400: "#45b08e",
+          500: "#289775",
+          600: "#0f6e56",
+          700: "#0c5a47",
+          800: "#0a4839",
+          900: "#07362c",
         },
         success: {
           50: "#f0fdf4",

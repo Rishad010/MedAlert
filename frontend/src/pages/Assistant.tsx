@@ -1,10 +1,57 @@
 import { useState, useRef, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Send, Bot, User, AlertCircle } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+}
+
+/** Collapse common LLM glitch: nested or doubled ** wrappers so Markdown renders cleanly. */
+function normalizeAssistantMarkdown(text: string): string {
+  let s = text;
+  // `****value****` from concatenating `**` + `**value**`
+  s = s.replace(/\*\*\*\*([^*]+?)\*\*\*\*/g, "**$1**");
+  // `** **value** **` style double wrap
+  s = s.replace(/\*\*\s*\*\*([^*]+?)\*\*\s*\*\*/g, "**$1**");
+  // `**\*\*value\*\***` when model escapes inner stars
+  s = s.replace(/\*\*\\*\*\\*([^*]+?)\\*\*\\*\*\*\*/g, "**$1**");
+  return s;
+}
+
+function AssistantMessageBody({ content }: { content: string }) {
+  return (
+    <ReactMarkdown
+      components={{
+        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+        strong: ({ children }) => (
+          <strong className="font-semibold text-gray-900">{children}</strong>
+        ),
+        em: ({ children }) => <em className="italic">{children}</em>,
+        ul: ({ children }) => <ul className="my-2 list-disc pl-4">{children}</ul>,
+        ol: ({ children }) => <ol className="my-2 list-decimal pl-4">{children}</ol>,
+        li: ({ children }) => <li className="mb-0.5">{children}</li>,
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            className="text-primary-600 underline hover:text-primary-700"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {children}
+          </a>
+        ),
+        code: ({ children }) => (
+          <code className="rounded bg-gray-200/80 px-1 py-0.5 font-mono text-[0.85em]">
+            {children}
+          </code>
+        ),
+      }}
+    >
+      {normalizeAssistantMarkdown(content)}
+    </ReactMarkdown>
+  );
 }
 
 export default function Assistant() {
@@ -106,9 +153,9 @@ export default function Assistant() {
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)] max-w-2xl mx-auto">
       {/* Header */}
-      <div className="flex items-center gap-3 pb-4 border-b border-gray-200">
-        <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center">
-          <Bot className="w-5 h-5 text-blue-600" />
+      <div className="flex items-center gap-3 pb-4 border-b border-emerald-100/80">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-100 ring-1 ring-primary-200/50">
+          <Bot className="h-5 w-5 text-primary-700" />
         </div>
         <div>
           <p className="font-semibold text-gray-800 text-sm">MedBot</p>
@@ -124,23 +171,29 @@ export default function Assistant() {
             className={`flex gap-3 ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.role === "assistant" && (
-              <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-1">
-                <Bot className="w-4 h-4 text-blue-600" />
+              <div className="mt-1 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary-100 ring-1 ring-primary-200/40">
+                <Bot className="h-4 w-4 text-primary-700" />
               </div>
             )}
             <div
               className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                 msg.role === "user"
-                  ? "bg-blue-600 text-white rounded-tr-sm"
-                  : "bg-gray-100 text-gray-800 rounded-tl-sm"
+                  ? "rounded-tr-sm bg-primary-600 text-white shadow-sm"
+                  : "rounded-tl-sm border border-emerald-100/80 bg-white/90 text-gray-800 shadow-sm"
               }`}
             >
-              {msg.content || (
-                <span className="flex gap-1 items-center py-1">
-                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0ms]" />
-                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:150ms]" />
-                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:300ms]" />
-                </span>
+              {msg.role === "assistant" ? (
+                msg.content ? (
+                  <AssistantMessageBody content={msg.content} />
+                ) : (
+                  <span className="flex gap-1 items-center py-1">
+                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:0ms]" />
+                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:150ms]" />
+                    <span className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce [animation-delay:300ms]" />
+                  </span>
+                )
+              ) : (
+                msg.content
               )}
             </div>
             {msg.role === "user" && (
@@ -161,7 +214,7 @@ export default function Assistant() {
       </div>
 
       {/* Input */}
-      <div className="border-t border-gray-200 pt-4">
+      <div className="border-t border-emerald-100/80 pt-4">
         <div className="flex gap-2 items-end">
           <textarea
             value={input}
@@ -169,7 +222,7 @@ export default function Assistant() {
             onKeyDown={handleKeyDown}
             placeholder="Ask about your medicines or say e.g. add Metformin at 8 AM and 8 PM…"
             rows={1}
-            className="flex-1 resize-none border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 max-h-32"
+            className="max-h-32 flex-1 resize-none rounded-xl border border-emerald-200/70 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
           />
           <button
             type="button"
@@ -177,7 +230,7 @@ export default function Assistant() {
             title="Send message"
             onClick={sendMessage}
             disabled={!input.trim() || loading}
-            className="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition flex-shrink-0"
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary-600 text-white transition hover:bg-primary-700 disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Send className="w-4 h-4" />
           </button>

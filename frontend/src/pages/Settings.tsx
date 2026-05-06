@@ -99,7 +99,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-xl shadow space-y-6">
+    <div className="mx-auto mt-10 max-w-lg space-y-6 rounded-xl border border-emerald-200/50 bg-white/95 p-6 shadow-[0_8px_30px_-8px_rgba(15,110,86,0.12)] backdrop-blur-sm">
       <h1 className="text-2xl font-bold text-gray-800">Settings</h1>
 
       {/* Name */}
@@ -112,7 +112,7 @@ export default function Settings() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border border-emerald-200/70 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
 
@@ -127,7 +127,7 @@ export default function Settings() {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="+91XXXXXXXXXX"
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border border-emerald-200/70 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
         />
       </div>
 
@@ -144,7 +144,7 @@ export default function Settings() {
                 type="checkbox"
                 checked={value}
                 onChange={(e) => setter(e.target.checked)}
-                className="w-4 h-4 accent-blue-600"
+                className="h-4 w-4 accent-primary-600"
               />
               <span className="text-sm text-gray-700">{label}</span>
             </label>
@@ -153,7 +153,7 @@ export default function Settings() {
       </div>
 
       {/* Push notifications — separate section */}
-      <div className="border border-gray-200 rounded-lg p-4 space-y-2">
+      <div className="space-y-2 rounded-lg border border-emerald-100/80 bg-primary-50/40 p-4">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm font-medium text-gray-700">Browser push notifications</p>
@@ -167,7 +167,7 @@ export default function Settings() {
             className={`text-sm font-medium px-3 py-1.5 rounded-lg transition disabled:opacity-50 ${
               pushEnabled
                 ? "bg-red-50 text-red-600 hover:bg-red-100"
-                : "bg-blue-600 text-white hover:bg-blue-700"
+                : "bg-primary-600 text-white hover:bg-primary-700"
             }`}
           >
             {pushLoading ? "..." : pushEnabled ? "Disable" : "Enable"}
@@ -177,14 +177,14 @@ export default function Settings() {
       </div>
 
       {/* Feedback */}
-      {success && <p className="text-sm text-green-600 font-medium">Settings saved!</p>}
+      {success && <p className="text-sm font-medium text-primary-700">Settings saved!</p>}
       {error && <p className="text-sm text-red-500">{error}</p>}
 
       {/* Save button */}
       <button
         onClick={handleSave}
         disabled={saving}
-        className="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition"
+        className="w-full rounded-lg bg-primary-600 py-2 text-sm font-medium text-white transition hover:bg-primary-700 disabled:opacity-50"
       >
         {saving ? "Saving..." : "Save settings"}
       </button>

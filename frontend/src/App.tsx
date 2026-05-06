@@ -14,6 +14,7 @@ import AdminDashboard from "./components/AdminDashboard";
 import { Pharmacy } from "./pages/Pharmacy";
 import Settings from "./pages/Settings";
 import Assistant from "./pages/Assistant";
+import { Landing } from "./pages/Landing";
 
 // Blocks unauthenticated users — redirects to /login
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -44,8 +45,8 @@ function PublicRoute({ children }: { children: React.ReactNode }) {
 // Extracted to avoid repeating the spinner JSX 3 times
 function Spinner() { // 👈 added
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600" />
+    <div className="flex min-h-screen items-center justify-center bg-primary-50">
+      <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-primary-600" />
     </div>
   );
 }
@@ -54,13 +55,14 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
+        <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
+
         {/* Public routes */}
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
 
         {/* Protected user routes */}
-        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-          <Route index element={<Navigate to="/dashboard" replace />} />
+        <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="medicines" element={<Medicines />} />
           <Route path="medicines/add" element={<AddMedicine />} />

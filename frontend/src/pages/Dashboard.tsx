@@ -22,7 +22,7 @@ import {
 import { dashboardAPI } from "../services/api";
 import { format } from "date-fns";
 
-const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444"];
+const COLORS = ["#f59e0b", "#0f6e56"];
 
 export function Dashboard() {
   const { data: dashboardData, isLoading } = useQuery({
@@ -141,7 +141,7 @@ export function Dashboard() {
                 <Line
                   type="monotone"
                   dataKey="count"
-                  stroke="#3b82f6"
+                  stroke="#289775"
                   strokeWidth={2}
                   name="Total"
                 />
@@ -201,7 +201,7 @@ export function Dashboard() {
             {dashboardData.recentReminders.map((reminder: any) => (
               <div
                 key={reminder._id}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                className="flex items-center justify-between rounded-lg border border-emerald-100/60 bg-primary-50/70 p-3"
               >
                 <div className="flex items-center">
                   <div className="flex-shrink-0">

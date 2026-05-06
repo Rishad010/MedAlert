@@ -10,7 +10,7 @@
   }
 
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-primary-50 text-gray-900;
   }
 }
 
@@ -20,7 +20,7 @@
   }
 
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-white border border-emerald-200/80 hover:bg-primary-50 hover:border-emerald-300/80 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-sm;
   }
 
   .btn-danger {
@@ -28,7 +28,7 @@
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+    @apply bg-white/95 rounded-xl border border-emerald-200/50 p-6 shadow-[0_8px_30px_-8px_rgba(15,110,86,0.12)] backdrop-blur-sm;
   }
 
   .input-field {

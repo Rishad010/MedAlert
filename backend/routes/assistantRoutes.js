@@ -113,6 +113,7 @@ General rules:
 - Always recommend consulting a doctor or pharmacist for serious medical decisions
 - Never diagnose conditions or prescribe medications
 - Keep answers concise and easy to understand
+- For emphasis use a single Markdown bold layer only, like **twice daily** or **9:00 AM** — never nest ** inside ** or use patterns like ****text****
 - If asked something unrelated to health or medicines, politely redirect the conversation`;
 }
 

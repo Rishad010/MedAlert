@@ -567,3 +567,105 @@
 {"level":"http","message":"\u001b[0mPOST /api/auth/register \u001b[32m201\u001b[0m 67.692 ms - 276\u001b[0m","timestamp":"2026-05-06 01:24:15"}
 {"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[32m200\u001b[0m 5.729 ms - 150\u001b[0m","timestamp":"2026-05-06 01:24:15"}
 {"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[33m401\u001b[0m 0.436 ms - 38\u001b[0m","timestamp":"2026-05-06 01:24:15"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[32m200\u001b[0m 8.929 ms - 164\u001b[0m","timestamp":"2026-05-06 01:53:32"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 3.634 ms - -\u001b[0m","timestamp":"2026-05-06 01:53:32"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 25.883 ms - 2095\u001b[0m","timestamp":"2026-05-06 01:53:32"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 5.573 ms - -\u001b[0m","timestamp":"2026-05-06 01:53:50"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 4.892 ms - -\u001b[0m","timestamp":"2026-05-06 01:53:50"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 14.554 ms - -\u001b[0m","timestamp":"2026-05-06 01:53:50"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 7.116 ms - -\u001b[0m","timestamp":"2026-05-06 01:54:01"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 4.255 ms - -\u001b[0m","timestamp":"2026-05-06 01:54:01"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 15.612 ms - -\u001b[0m","timestamp":"2026-05-06 01:54:02"}
+{"level":"warn","message":"SIGINT received. Shutting down...","timestamp":"2026-05-06 01:54:33"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 01:54:42"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 01:54:43"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 01:54:43"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 01:54:43"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 93.420 ms - 270\u001b[0m","timestamp":"2026-05-06 03:24:32"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 25.630 ms - -\u001b[0m","timestamp":"2026-05-06 03:24:32"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 75.591 ms - 270\u001b[0m","timestamp":"2026-05-06 04:00:32"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 17.293 ms - -\u001b[0m","timestamp":"2026-05-06 04:00:32"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 04:10:01"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 04:10:02"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 04:10:02"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 04:10:02"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 101.420 ms - 270\u001b[0m","timestamp":"2026-05-06 04:10:41"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 23.504 ms - -\u001b[0m","timestamp":"2026-05-06 04:10:41"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 74.633 ms - 270\u001b[0m","timestamp":"2026-05-06 04:12:21"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 14.382 ms - -\u001b[0m","timestamp":"2026-05-06 04:12:21"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 4.356 ms - -\u001b[0m","timestamp":"2026-05-06 04:12:31"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 23.711 ms - 30179\u001b[0m","timestamp":"2026-05-06 04:12:33"}
+{"level":"http","message":"\u001b[0mGET /api/pharmacy/products \u001b[36m304\u001b[0m 5.230 ms - -\u001b[0m","timestamp":"2026-05-06 04:12:35"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[32m200\u001b[0m 2759.321 ms - -\u001b[0m","timestamp":"2026-05-06 04:12:45"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[32m200\u001b[0m 2300.369 ms - -\u001b[0m","timestamp":"2026-05-06 04:13:10"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 7.006 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:11"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[32m200\u001b[0m 4.109 ms - 164\u001b[0m","timestamp":"2026-05-06 04:17:11"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 4.251 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:11"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 04:17:24"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 04:17:25"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 04:17:25"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 04:17:25"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 17.003 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:36"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 7.331 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:36"}
+{"level":"http","message":"\u001b[0mGET /api/pharmacy/products \u001b[36m304\u001b[0m 6.701 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:39"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[36m304\u001b[0m 28.867 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:39"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 5.932 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:40"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 15.276 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:40"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[32m200\u001b[0m 1587.371 ms - -\u001b[0m","timestamp":"2026-05-06 04:17:49"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[32m200\u001b[0m 3098.810 ms - -\u001b[0m","timestamp":"2026-05-06 04:18:07"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 5.788 ms - -\u001b[0m","timestamp":"2026-05-06 04:18:18"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 5.337 ms - -\u001b[0m","timestamp":"2026-05-06 04:18:18"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 13.047 ms - -\u001b[0m","timestamp":"2026-05-06 04:18:20"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 04:40:41"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 04:40:42"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 04:40:42"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 04:40:43"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 100.786 ms - 270\u001b[0m","timestamp":"2026-05-06 05:29:21"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 29.249 ms - -\u001b[0m","timestamp":"2026-05-06 05:29:21"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 75.230 ms - 270\u001b[0m","timestamp":"2026-05-06 05:30:04"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 22.610 ms - 2095\u001b[0m","timestamp":"2026-05-06 05:30:04"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 4.833 ms - -\u001b[0m","timestamp":"2026-05-06 05:30:14"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[36m304\u001b[0m 19.146 ms - -\u001b[0m","timestamp":"2026-05-06 05:30:15"}
+{"level":"http","message":"\u001b[0mGET /api/pharmacy/products \u001b[36m304\u001b[0m 5.348 ms - -\u001b[0m","timestamp":"2026-05-06 05:30:17"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 73.900 ms - 270\u001b[0m","timestamp":"2026-05-06 05:36:02"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 18.998 ms - -\u001b[0m","timestamp":"2026-05-06 05:36:02"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 4.589 ms - -\u001b[0m","timestamp":"2026-05-06 05:36:08"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[36m304\u001b[0m 20.912 ms - -\u001b[0m","timestamp":"2026-05-06 05:36:09"}
+{"level":"http","message":"\u001b[0mGET /api/pharmacy/products \u001b[36m304\u001b[0m 5.830 ms - -\u001b[0m","timestamp":"2026-05-06 05:36:11"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 71.929 ms - 270\u001b[0m","timestamp":"2026-05-06 05:37:16"}
+{"level":"http","message":"\u001b[0mGET /api/medicines/69ceab7bb51d21d324b799bc \u001b[32m200\u001b[0m 4.806 ms - 276\u001b[0m","timestamp":"2026-05-06 05:37:25"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[32m200\u001b[0m 1801.726 ms - -\u001b[0m","timestamp":"2026-05-06 05:37:50"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[32m200\u001b[0m 2605.159 ms - -\u001b[0m","timestamp":"2026-05-06 05:38:09"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 92.981 ms - 270\u001b[0m","timestamp":"2026-05-06 05:39:14"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 14.514 ms - -\u001b[0m","timestamp":"2026-05-06 05:39:14"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 4.319 ms - -\u001b[0m","timestamp":"2026-05-06 05:39:20"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[36m304\u001b[0m 18.143 ms - -\u001b[0m","timestamp":"2026-05-06 05:39:22"}
+{"level":"http","message":"\u001b[0mGET /api/pharmacy/products \u001b[36m304\u001b[0m 4.021 ms - -\u001b[0m","timestamp":"2026-05-06 05:39:24"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 80.746 ms - 270\u001b[0m","timestamp":"2026-05-06 05:43:22"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 12.611 ms - -\u001b[0m","timestamp":"2026-05-06 05:43:22"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[36m304\u001b[0m 18.083 ms - -\u001b[0m","timestamp":"2026-05-06 05:43:40"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4fee871051e39da61bab/acknowledge \u001b[32m200\u001b[0m 19.724 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:42"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 17.408 ms - 30222\u001b[0m","timestamp":"2026-05-06 05:43:42"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4feb871051e39da61ba7/acknowledge \u001b[32m200\u001b[0m 5.618 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:44"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 16.634 ms - 30265\u001b[0m","timestamp":"2026-05-06 05:43:44"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4d8a871051e39da61b6b/acknowledge \u001b[32m200\u001b[0m 6.546 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:46"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 13.547 ms - 30308\u001b[0m","timestamp":"2026-05-06 05:43:46"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4d8a871051e39da61b69/acknowledge \u001b[32m200\u001b[0m 5.069 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:47"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 13.464 ms - 30351\u001b[0m","timestamp":"2026-05-06 05:43:47"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4d8f871051e39da61b81/acknowledge \u001b[32m200\u001b[0m 6.900 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:48"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 13.639 ms - 30394\u001b[0m","timestamp":"2026-05-06 05:43:48"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4d82871051e39da61b47/acknowledge \u001b[32m200\u001b[0m 6.725 ms - 343\u001b[0m","timestamp":"2026-05-06 05:43:51"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 13.505 ms - 30437\u001b[0m","timestamp":"2026-05-06 05:43:51"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4b36871051e39da61b1b/acknowledge \u001b[32m200\u001b[0m 5.604 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:52"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 12.709 ms - 30480\u001b[0m","timestamp":"2026-05-06 05:43:53"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4d81871051e39da61b3f/acknowledge \u001b[32m200\u001b[0m 5.570 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:54"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 13.727 ms - 30523\u001b[0m","timestamp":"2026-05-06 05:43:54"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4b2f871051e39da61b03/acknowledge \u001b[32m200\u001b[0m 7.469 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:56"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 13.963 ms - 30566\u001b[0m","timestamp":"2026-05-06 05:43:56"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4b2e871051e39da61afd/acknowledge \u001b[32m200\u001b[0m 7.337 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:57"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 13.247 ms - 30609\u001b[0m","timestamp":"2026-05-06 05:43:57"}
+{"level":"http","message":"\u001b[0mPUT /api/reminders/69fa4b34871051e39da61b15/acknowledge \u001b[32m200\u001b[0m 6.109 ms - 341\u001b[0m","timestamp":"2026-05-06 05:43:59"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 11.434 ms - 30652\u001b[0m","timestamp":"2026-05-06 05:43:59"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 10.310 ms - 2183\u001b[0m","timestamp":"2026-05-06 05:44:01"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 5.132 ms - -\u001b[0m","timestamp":"2026-05-06 05:44:23"}
+{"level":"http","message":"\u001b[0mGET /api/pharmacy/products \u001b[36m304\u001b[0m 4.005 ms - -\u001b[0m","timestamp":"2026-05-06 05:44:25"}

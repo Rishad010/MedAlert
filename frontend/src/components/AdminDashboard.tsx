@@ -99,7 +99,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-primary-50 p-6">
       <div className="max-w-6xl mx-auto">
         <header className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-semibold">Pharmacy Admin Dashboard</h1>
@@ -112,7 +112,7 @@ export default function AdminDashboard() {
             />
             <button
               onClick={saveToken}
-              className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm"
+              className="rounded-md bg-primary-600 px-3 py-2 text-sm text-white hover:bg-primary-700"
             >
               Save & Refresh
             </button>
@@ -127,7 +127,7 @@ export default function AdminDashboard() {
           </div>
         </header>
 
-        <section className="bg-white shadow rounded-lg p-4 mb-6">
+        <section className="mb-6 rounded-lg border border-emerald-200/50 bg-white/95 p-4 shadow-[0_8px_30px_-8px_rgba(15,110,86,0.12)] backdrop-blur-sm">
           <div className="flex flex-wrap gap-3 items-center">
             <input
               value={search}
@@ -148,7 +148,7 @@ export default function AdminDashboard() {
             </select>
             <button
               onClick={fetchOrders}
-              className="px-3 py-2 bg-gray-800 text-white rounded-md text-sm"
+              className="rounded-md bg-primary-800 px-3 py-2 text-sm text-white hover:bg-primary-900"
             >
               Refresh
             </button>
@@ -159,10 +159,10 @@ export default function AdminDashboard() {
         </section>
 
         <main>
-          <div className="overflow-x-auto bg-white shadow rounded-lg">
+          <div className="overflow-x-auto rounded-lg border border-emerald-200/50 bg-white/95 shadow-[0_8px_30px_-8px_rgba(15,110,86,0.12)] backdrop-blur-sm">
             <table className="min-w-full table-auto">
               <thead>
-                <tr className="text-left bg-gray-100">
+                <tr className="bg-primary-100/80 text-left">
                   <th className="px-4 py-3 text-sm">Order ID</th>
                   <th className="px-4 py-3 text-sm">Customer</th>
                   <th className="px-4 py-3 text-sm">Items</th>
@@ -222,7 +222,7 @@ export default function AdminDashboard() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => setSelectedOrder(o)}
-                          className="px-2 py-1 bg-blue-600 text-white rounded text-sm"
+                          className="rounded bg-primary-600 px-2 py-1 text-sm text-white hover:bg-primary-700"
                         >
                           View
                         </button>
@@ -230,7 +230,7 @@ export default function AdminDashboard() {
                           onClick={() =>
                             updateStatus(o._id, nextStatus(o.status))
                           }
-                          className="px-2 py-1 bg-green-600 text-white rounded text-sm"
+                          className="rounded bg-primary-500 px-2 py-1 text-sm text-white hover:bg-primary-600"
                         >
                           {nextActionText(o.status)}
                         </button>
@@ -298,8 +298,8 @@ function OrderModal({ order, onClose, onUpdate }: any) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white w-full max-w-3xl rounded-lg shadow p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-emerald-950/40 backdrop-blur-[2px]">
+      <div className="w-full max-w-3xl rounded-xl border border-emerald-200/60 bg-white/95 p-6 shadow-[0_20px_50px_-12px_rgba(15,110,86,0.25)] backdrop-blur-md">
         <div className="flex items-start justify-between mb-4">
           <h2 className="text-lg font-semibold">Order {order._id}</h2>
           <button onClick={onClose} className="text-gray-500">
@@ -326,7 +326,7 @@ function OrderModal({ order, onClose, onUpdate }: any) {
                 href={order.prescription.fileUrl || order.prescription}
                 target="_blank"
                 rel="noreferrer"
-                className="text-blue-600 underline text-sm"
+                className="text-sm text-primary-600 underline hover:text-primary-700"
               >
                 View uploaded prescription
               </a>
@@ -387,13 +387,13 @@ function OrderModal({ order, onClose, onUpdate }: any) {
                 <button
                   onClick={save}
                   disabled={saving}
-                  className="px-4 py-2 bg-green-600 text-white rounded"
+                  className="rounded-lg bg-primary-600 px-4 py-2 text-white hover:bg-primary-700 disabled:opacity-50"
                 >
                   {saving ? "Saving..." : "Save"}
                 </button>
                 <button
                   onClick={onClose}
-                  className="px-4 py-2 bg-gray-200 rounded"
+                  className="rounded-lg border border-emerald-200/80 bg-white px-4 py-2 hover:bg-primary-50"
                 >
                   Cancel
                 </button>
