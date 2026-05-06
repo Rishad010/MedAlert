@@ -836,3 +836,19 @@
 {"level":"http","message":"\u001b[0mGET /api/admin/users \u001b[32m200\u001b[0m 13.488 ms - 792\u001b[0m","timestamp":"2026-05-06 15:09:59"}
 {"level":"http","message":"\u001b[0mGET /api/admin/orders \u001b[36m304\u001b[0m 20.112 ms - -\u001b[0m","timestamp":"2026-05-06 15:10:06"}
 {"level":"http","message":"\u001b[0mGET /api/admin/stock-alerts \u001b[32m200\u001b[0m 21.194 ms - 5550\u001b[0m","timestamp":"2026-05-06 15:10:09"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 17:12:35"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 17:12:36"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 17:12:36"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 17:12:37"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 17:12:46"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 17:12:47"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 17:12:47"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 17:12:47"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 17:14:30"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 17:14:31"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 17:14:31"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 17:14:31"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-06 17:14:41"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-06 17:14:42"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 17:14:42"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 17:14:42"}
