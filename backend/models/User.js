@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
 
     // 💾 Notification Preferences
     notifications: {
@@ -25,6 +29,8 @@ const userSchema = new mongoose.Schema(
 
     // 💾 Phone number (for SMS notifications)
     phone: { type: String },
+    resetPasswordToken: { type: String },
+    resetPasswordExpire: { type: Date },
   },
   { timestamps: true }
 );

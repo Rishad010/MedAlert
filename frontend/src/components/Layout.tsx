@@ -17,7 +17,7 @@ export function Layout() {
     { name: "Pharmacy", href: "/pharmacy", icon: ShoppingBag },
     { name: "MedBot", href: "/assistant", icon: Bot },
     { name: "Settings", href: "/settings", icon: Settings },
-    ...(isAdmin ? [{ name: "Admin", href: "/admin", icon: ShieldCheck }] : []),
+    ...(isAdmin ? [{ name: "Admin Panel", href: "/admin", icon: ShieldCheck }] : []),
   ];
 
   const handleLogout = () => {
@@ -63,6 +63,7 @@ export function Layout() {
             <nav className="space-y-1 px-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
+                const isAdminLink = item.name === "Admin Panel";
                 return (
                   <button
                     key={item.name}
@@ -71,12 +72,16 @@ export function Layout() {
                       setSidebarOpen(false);
                     }}
                     className={`${
-                      isActive(item.href)
+                      isAdminLink
+                        ? "border border-emerald-600 text-emerald-700 hover:bg-emerald-50"
+                        : isActive(item.href)
                         ? "bg-primary-100 text-primary-800 shadow-sm ring-1 ring-primary-200/60"
                         : "text-gray-600 hover:bg-primary-50/90 hover:text-primary-900"
-                    } group flex w-full items-center px-2 py-2 text-base font-medium rounded-md transition-colors`}
+                    } group flex w-full items-center rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                      !isAdminLink ? "text-base lg:text-sm px-2 py-2 rounded-md" : ""
+                    }`}
                   >
-                    <Icon className="mr-4 h-6 w-6" />
+                    <Icon className={`${isAdminLink ? "mr-2 h-4 w-4" : "mr-4 h-6 w-6"}`} />
                     {item.name}
                   </button>
                 );
@@ -115,17 +120,22 @@ export function Layout() {
             <nav className="mt-5 flex-1 space-y-1 px-2">
               {navigation.map((item) => {
                 const Icon = item.icon;
+                const isAdminLink = item.name === "Admin Panel";
                 return (
                   <button
                     key={item.name}
                     onClick={() => navigate(item.href)}
                     className={`${
-                      isActive(item.href)
+                      isAdminLink
+                        ? "border border-emerald-600 text-emerald-700 hover:bg-emerald-50"
+                        : isActive(item.href)
                         ? "bg-primary-100 text-primary-800 shadow-sm ring-1 ring-primary-200/60"
                         : "text-gray-600 hover:bg-primary-50/90 hover:text-primary-900"
-                    } group flex w-full items-center px-2 py-2 text-sm font-medium rounded-md transition-colors`}
+                    } group flex w-full items-center rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+                      !isAdminLink ? "px-2 py-2 rounded-md" : ""
+                    }`}
                   >
-                    <Icon className="mr-3 h-6 w-6" />
+                    <Icon className={`${isAdminLink ? "mr-2 h-4 w-4" : "mr-3 h-6 w-6"}`} />
                     {item.name}
                   </button>
                 );

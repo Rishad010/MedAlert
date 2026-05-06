@@ -1,30 +1,40 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Pill, Eye, EyeOff } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Pill, Eye, EyeOff, Info, X } from "lucide-react";
+import { useForm } from "react-hook-form";
 import { useAuth } from "../contexts/AuthContext";
 import { BackToLanding } from "../components/BackToLanding";
 
+type LoginFormData = {
+  email: string;
+  password: string;
+};
+
 export function Login() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [searchParams] = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
+  const [showDemoBanner, setShowDemoBanner] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
+  const { register, handleSubmit, setValue } = useForm<LoginFormData>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    if (searchParams.get("demo") === "admin") {
+      setValue("email", "admin@medalert.com");
+      setValue("password", "Admin@123");
+      setShowDemoBanner(true);
+    }
+  }, [searchParams, setValue]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async (formData: LoginFormData) => {
     setError("");
     setLoading(true);
 
@@ -65,7 +75,25 @@ export function Login() {
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit(handleLogin)}>
+          {showDemoBanner && (
+            <div className="flex items-start justify-between gap-3 rounded-md border border-green-200 bg-green-50 p-3">
+              <div className="flex items-start gap-2">
+                <Info className="mt-0.5 h-4 w-4 shrink-0 text-green-700" />
+                <p className="text-sm text-green-800">
+                  Admin demo credentials have been pre-filled. Just click Sign in to explore the admin panel.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowDemoBanner(false)}
+                className="text-green-700 hover:text-green-900"
+                aria-label="Dismiss demo info"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          )}
           {error && (
             <div className="rounded-md bg-danger-50 p-4">
               <div className="text-sm text-danger-700">{error}</div>
@@ -84,8 +112,7 @@ export function Login() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
-                value={formData.email}
-                onChange={handleChange}
+                {...register("email")}
               />
             </div>
             <div className="relative">
@@ -100,8 +127,7 @@ export function Login() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
+                {...register("password")}
               />
               <button
                 type="button"
@@ -114,6 +140,14 @@ export function Login() {
                   <Eye className="h-5 w-5 text-gray-400" />
                 )}
               </button>
+            </div>
+            <div className="flex justify-end pt-2">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-emerald-700 hover:underline"
+              >
+                Forgot password?
+              </Link>
             </div>
           </div>
 

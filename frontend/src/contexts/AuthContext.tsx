@@ -6,7 +6,7 @@ import {
   useEffect,
   type ReactNode,
 } from "react";
-import { api } from "../services/api";
+import { api, authAPI } from "../services/api";
 
 interface User {
   _id: string;
@@ -27,6 +27,14 @@ interface AuthContextType {
   isAdmin: boolean;         // 👈 added — convenience flag for route guards & UI
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
+  setAuthSession: (authData: {
+    token: string;
+    _id: string;
+    name: string;
+    email: string;
+    role: "user" | "admin";
+  }) => void;
+  resetPasswordWithToken: (token: string, newPassword: string) => Promise<void>;
   updateUser: (updated: Partial<User>) => void;
   logout: () => void;
 }
@@ -58,13 +66,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const setAuthSession = (authData: {
+    token: string;
+    _id: string;
+    name: string;
+    email: string;
+    role: "user" | "admin";
+  }) => {
+    const { token, ...userData } = authData;
+    localStorage.setItem("token", token);
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    setUser(userData);
+  };
+
   const login = async (email: string, password: string) => {
     try {
       const response = await api.post("/auth/login", { email, password });
-      const { token, ...userData } = response.data;
-      localStorage.setItem("token", token);
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      setUser(userData);
+      setAuthSession(response.data);
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Login failed");
     }
@@ -77,12 +95,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email,
         password,
       });
-      const { token, ...userData } = response.data;
-      localStorage.setItem("token", token);
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      setUser(userData);
+      setAuthSession(response.data);
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Registration failed");
+    }
+  };
+
+  const resetPasswordWithToken = async (token: string, newPassword: string) => {
+    try {
+      const response = await authAPI.resetPassword(token, newPassword);
+      setAuthSession(response.data);
+    } catch (error: any) {
+      throw new Error(
+        error.response?.data?.message || "This reset link is invalid or has expired.",
+      );
     }
   };
 
@@ -100,7 +126,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const isAdmin = user?.role === "admin"; // 👈 added
 
   return (
-    <AuthContext.Provider value={{ user, loading, isAdmin, login, register, logout, updateUser }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        isAdmin,
+        login,
+        register,
+        setAuthSession,
+        resetPasswordWithToken,
+        logout,
+        updateUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

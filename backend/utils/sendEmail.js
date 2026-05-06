@@ -42,7 +42,7 @@ if (
   );
 }
 
-export const sendEmail = async (to, subject, text) => {
+export const sendEmail = async (to, subject, text, html) => {
   // Check if Gmail is configured
   if (!transporter) {
     console.log("⚠️ Email not sent - Gmail not configured");
@@ -60,15 +60,17 @@ export const sendEmail = async (to, subject, text) => {
     to: to,
     subject: subject,
     text: text,
-    html: `<div style="font-family: Arial, sans-serif; padding: 20px;">
-      <h2 style="color: #4CAF50;">${subject}</h2>
-      <p style="font-size: 16px; line-height: 1.6;">${text.replace(
-        /\n/g,
-        "<br>"
-      )}</p>
-      <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
-      <p style="color: #666; font-size: 12px;">This is an automated message from MedAlert.</p>
-    </div>`,
+    html:
+      html ||
+      `<div style="font-family: Arial, sans-serif; padding: 20px;">
+        <h2 style="color: #4CAF50;">${subject}</h2>
+        <p style="font-size: 16px; line-height: 1.6;">${text.replace(
+          /\n/g,
+          "<br>"
+        )}</p>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;">
+        <p style="color: #666; font-size: 12px;">This is an automated message from MedAlert.</p>
+      </div>`,
   };
 
   try {

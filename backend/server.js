@@ -16,6 +16,7 @@ import reminderRoutes from "./routes/reminderRoutes.js";
 import pharmacyRoutes from "./routes/pharmacyRoutes.js";
 import pushRoutes from "./routes/pushRoutes.js";
 import testRoutes from "./routes/testRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import sendReminderJob from "./jobs/sendReminder.js";
 import checkStockExpiryJob from "./jobs/checkStockExpiry.js";
@@ -66,6 +67,7 @@ app.use("/api/pharmacy", pharmacyRoutes);
 app.use("/api/push", pushRoutes);
 app.use("/api/test", testRoutes);
 app.use("/api/assistant", assistantRoutes);
+app.use("/api/admin", adminRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

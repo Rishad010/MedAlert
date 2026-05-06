@@ -10,11 +10,18 @@ import { Medicines } from "./pages/Medicines";
 import { AddMedicine } from "./pages/AddMedicine";
 import { EditMedicine } from "./pages/EditMedicine";
 import { Reminders } from "./pages/Reminders";
-import AdminDashboard from "./components/AdminDashboard";
 import { Pharmacy } from "./pages/Pharmacy";
 import Settings from "./pages/Settings";
 import Assistant from "./pages/Assistant";
 import { Landing } from "./pages/Landing";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { ResetPassword } from "./pages/ResetPassword";
+import { AdminLayout } from "./pages/admin/AdminLayout";
+import { AdminOverview } from "./pages/admin/AdminOverview";
+import { AdminUsers } from "./pages/admin/AdminUsers";
+import { AdminOrders } from "./pages/admin/AdminOrders";
+import { AdminStockAlerts } from "./pages/admin/AdminStockAlerts";
+import { AdminAnalytics } from "./pages/admin/AdminAnalytics";
 
 // Blocks unauthenticated users — redirects to /login
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -60,6 +67,8 @@ function App() {
         {/* Public routes */}
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+        <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+        <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
 
         {/* Protected user routes */}
         <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
@@ -78,10 +87,15 @@ function App() {
           path="/admin"
           element={
             <AdminRoute>
-              <AdminDashboard />
+              <AdminLayout />
             </AdminRoute>
-          }
-        />
+          }>
+          <Route index element={<AdminOverview />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="stock-alerts" element={<AdminStockAlerts />} />
+          <Route path="analytics" element={<AdminAnalytics />} />
+        </Route>
 
         {/* Catch-all — send unknown URLs to dashboard */}
         <Route path="*" element={<Navigate to="/dashboard" replace />} />

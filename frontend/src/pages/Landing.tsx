@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   Bell,
@@ -207,6 +207,7 @@ const features = [
 ];
 
 export function Landing() {
+  const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
@@ -367,6 +368,14 @@ export function Landing() {
               Log in to your account
             </Link>
           </div>
+          <button
+            type="button"
+            onClick={() => navigate("/login?demo=admin")}
+            className="relative z-10 inline-flex items-center gap-1.5 text-sm text-gray-500 transition hover:text-emerald-700"
+          >
+            <ShieldCheck className="h-4 w-4" />
+            Try Admin Demo — no signup needed
+          </button>
 
           {/* Mobile: four trust cards (mockup hidden below md) */}
           <div className="relative z-10 mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-3 px-2 sm:grid-cols-2 md:hidden">
