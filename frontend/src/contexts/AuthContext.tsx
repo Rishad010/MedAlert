@@ -8,14 +8,16 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, authAPI } from "../services/api";
+import { queryClient } from "../main";
 
 interface User {
   _id: string;
   name: string;
   email: string;
   role: "user" | "admin"; // 👈 added
-  phone?: string;                      // add
-  notifications?: {                    // add
+  phone?: string; // add
+  notifications?: {
+    // add
     email: boolean;
     push: boolean;
     sms: boolean;
@@ -25,7 +27,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  isAdmin: boolean;         // 👈 added — convenience flag for route guards & UI
+  isAdmin: boolean; // 👈 added — convenience flag for route guards & UI
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   setAuthSession: (authData: {
@@ -78,6 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { token, ...userData } = authData;
     localStorage.setItem("token", token);
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    queryClient.clear();
     setUser(userData);
   };
 
@@ -109,7 +112,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setAuthSession(response.data);
     } catch (error: any) {
       throw new Error(
-        error.response?.data?.message || "This reset link is invalid or has expired.",
+        error.response?.data?.message ||
+          "This reset link is invalid or has expired.",
       );
     }
   };
@@ -117,6 +121,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     localStorage.removeItem("token");
     delete api.defaults.headers.common["Authorization"];
+    queryClient.clear();
     setUser(null);
     navigate("/", { replace: true });
   };

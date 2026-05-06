@@ -13,7 +13,11 @@ import { format, isToday, isYesterday, isTomorrow } from "date-fns";
 export function Reminders() {
   const queryClient = useQueryClient();
 
-  const { data: reminders, isLoading, error } = useQuery({
+  const {
+    data: reminders,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["reminders"],
     queryFn: async () => {
       try {
@@ -101,7 +105,9 @@ export function Reminders() {
             Error loading reminders
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            {error instanceof Error ? error.message : "Failed to load reminders"}
+            {error instanceof Error
+              ? error.message
+              : "Failed to load reminders"}
           </p>
         </div>
       </div>
@@ -120,7 +126,7 @@ export function Reminders() {
     }, {}) || {};
 
   const sortedDates = Object.keys(groupedReminders).sort(
-    (a, b) => new Date(b).getTime() - new Date(a).getTime()
+    (a, b) => new Date(b).getTime() - new Date(a).getTime(),
   );
 
   return (
@@ -150,7 +156,7 @@ export function Reminders() {
                     {reminders.length > 0
                       ? reminders.filter(
                           (r: any) =>
-                            isToday(new Date(r.sentAt)) && r.acknowledged
+                            isToday(new Date(r.sentAt)) && r.acknowledged,
                         ).length
                       : 0}
                   </dd>
@@ -173,7 +179,7 @@ export function Reminders() {
                     {reminders.length > 0
                       ? reminders.filter(
                           (r: any) =>
-                            isToday(new Date(r.sentAt)) && !r.acknowledged
+                            isToday(new Date(r.sentAt)) && !r.acknowledged,
                         ).length
                       : 0}
                   </dd>
@@ -225,12 +231,12 @@ export function Reminders() {
                   .sort(
                     (a: any, b: any) =>
                       new Date(b.sentAt).getTime() -
-                      new Date(a.sentAt).getTime()
+                      new Date(a.sentAt).getTime(),
                   )
                   .map((reminder: any) => {
                     const status = getStatusText(
                       reminder.acknowledged,
-                      reminder.sentAt
+                      reminder.sentAt,
                     );
 
                     return (
@@ -242,7 +248,7 @@ export function Reminders() {
                           <div className="flex-shrink-0 mr-4">
                             {getStatusIcon(
                               reminder.acknowledged,
-                              reminder.sentAt
+                              reminder.sentAt,
                             )}
                           </div>
 
@@ -291,11 +297,15 @@ export function Reminders() {
             No reminder logs yet
           </h3>
           <p className="mt-1 text-sm text-gray-500 max-w-md mx-auto">
-            Reminder logs will appear here after your scheduled medicine reminders are sent. 
-            Make sure you have medicines with schedules set up, and wait for the scheduled time.
+            Reminder logs will appear here after your scheduled medicine
+            reminders are sent. Make sure you have medicines with schedules set
+            up, and wait for the scheduled time.
           </p>
           <div className="mt-4 text-xs text-gray-400">
-            API Status: {reminders === undefined ? "Loading..." : `Loaded (${Array.isArray(reminders) ? reminders.length : 0} reminders)`}
+            API Status:{" "}
+            {reminders === undefined
+              ? "Loading..."
+              : `Loaded (${Array.isArray(reminders) ? reminders.length : 0} reminders)`}
           </div>
         </div>
       )}

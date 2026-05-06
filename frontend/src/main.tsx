@@ -6,7 +6,7 @@ import App from "./App.tsx";
 import "./style.css";
 import { Toaster } from "react-hot-toast";
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes
@@ -23,5 +23,5 @@ ReactDOM.createRoot(document.getElementById("app")!).render(
         <Toaster position="top-right" />
       </BrowserRouter>
     </QueryClientProvider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

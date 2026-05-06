@@ -58,6 +58,10 @@ app.get("/", (req, res) => {
   res.send("MedAlert API is running...");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/medicines", medicineRoutes);
@@ -112,7 +116,7 @@ if (!isTestEnv) {
       setInterval(
         async () => {
           try {
-            await fetch(`${process.env.RENDER_EXTERNAL_URL}/`);
+            await fetch(`${process.env.RENDER_EXTERNAL_URL}/health`);
             logger.info("Keep-alive ping sent");
           } catch (err) {
             logger.error(`Keep-alive ping failed: ${err.message}`);

@@ -29,8 +29,12 @@ function AssistantMessageBody({ content }: { content: string }) {
           <strong className="font-semibold text-gray-900">{children}</strong>
         ),
         em: ({ children }) => <em className="italic">{children}</em>,
-        ul: ({ children }) => <ul className="my-2 list-disc pl-4">{children}</ul>,
-        ol: ({ children }) => <ol className="my-2 list-decimal pl-4">{children}</ol>,
+        ul: ({ children }) => (
+          <ul className="my-2 list-disc pl-4">{children}</ul>
+        ),
+        ol: ({ children }) => (
+          <ol className="my-2 list-decimal pl-4">{children}</ol>
+        ),
         li: ({ children }) => <li className="mb-0.5">{children}</li>,
         a: ({ href, children }) => (
           <a
@@ -77,7 +81,9 @@ export default function Assistant() {
     if (!trimmed || loading) return;
 
     const userMessage: Message = { role: "user", content: trimmed };
-    const history = messages.filter((m) => m.role !== "assistant" || messages.indexOf(m) > 0);
+    const history = messages.filter(
+      (m) => m.role !== "assistant" || messages.indexOf(m) > 0,
+    );
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
@@ -101,7 +107,7 @@ export default function Assistant() {
             message: trimmed,
             history: history.slice(-10), // send last 10 messages as context
           }),
-        }
+        },
       );
 
       if (!response.ok) throw new Error("Failed to reach assistant");
@@ -159,7 +165,9 @@ export default function Assistant() {
         </div>
         <div>
           <p className="font-semibold text-gray-800 text-sm">MedBot</p>
-          <p className="text-xs text-gray-400">AI medicine assistant · Not a substitute for medical advice</p>
+          <p className="text-xs text-gray-400">
+            AI medicine assistant · Not a substitute for medical advice
+          </p>
         </div>
       </div>
 

@@ -6,6 +6,7 @@ import {
   Menu,
   Package,
   Pill,
+  Play,
   ShieldCheck,
   Sparkles,
   X,
@@ -144,7 +145,8 @@ const testimonials = [
 const features = [
   {
     title: "Smart reminders",
-    description: "Schedule doses at any time. Get nudges if you forget to acknowledge.",
+    description:
+      "Schedule doses at any time. Get nudges if you forget to acknowledge.",
     svg: (
       <svg viewBox="0 0 24 24" fill="none" stroke="#0f6e56" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
@@ -154,7 +156,8 @@ const features = [
   },
   {
     title: "Stock alerts",
-    description: "Get warned before you run out. Never scramble for a refill again.",
+    description:
+      "Get warned before you run out. Never scramble for a refill again.",
     svg: (
       <svg viewBox="0 0 24 24" fill="none" stroke="#0f6e56" strokeWidth="2">
         <path d="M18 8h1a4 4 0 010 8h-1" />
@@ -210,7 +213,9 @@ export function Landing() {
   const navigate = useNavigate();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
+  const [visibleSections, setVisibleSections] = useState<
+    Record<string, boolean>
+  >({});
 
   useEffect(() => {
     const elements = document.querySelectorAll<HTMLElement>("[data-reveal-id]");
@@ -233,6 +238,14 @@ export function Landing() {
     elements.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+
+  const handleDemoLogin = () => {
+    navigate("/login?demo=user");
+  };
+
+  const handleAdminDemoLogin = () => {
+    navigate("/login?demo=admin");
+  };
 
   return (
     <div className="w-full bg-white text-[#111]">
@@ -290,7 +303,11 @@ export function Landing() {
             aria-label="Toggle menu"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
 
@@ -311,7 +328,11 @@ export function Landing() {
               >
                 How it works
               </a>
-              <a href="#faq" className="text-sm text-gray-700" onClick={() => setMobileMenuOpen(false)}>
+              <a
+                href="#faq"
+                className="text-sm text-gray-700"
+                onClick={() => setMobileMenuOpen(false)}
+              >
                 FAQ
               </a>
               <div className="mt-2 flex flex-col gap-2">
@@ -339,7 +360,42 @@ export function Landing() {
         <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-emerald-300 opacity-30 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-violet-300 opacity-30 blur-3xl" />
 
-        <div className="mx-auto w-full max-w-6xl text-center">
+        {/* Demo Section - positioned top-left */}
+        <div className="absolute top-4 left-4 z-20">
+          <div className="relative flex items-center gap-4 px-6 py-4 rounded-2xl border border-dashed border-green-300 bg-green-50/60 backdrop-blur-sm shadow-sm">
+            {/* Floating label */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white border border-green-200 text-green-700 text-xs font-semibold px-3 py-0.5 rounded-full shadow-sm whitespace-nowrap">
+              ⚡ Live Demo — no signup needed
+            </div>
+
+            {/* Try Demo Button */}
+            <button
+              onClick={handleDemoLogin}
+              className="flex items-center gap-2 px-5 py-2.5 bg-white border border-green-200 hover:border-green-400 hover:bg-green-50 text-green-800 text-sm font-semibold rounded-xl shadow-sm transition-all duration-200 group"
+            >
+              <span className="w-7 h-7 flex items-center justify-center bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                👤
+              </span>
+              User Dashboard
+            </button>
+
+            {/* Divider */}
+            <div className="w-px h-8 bg-green-200" />
+
+            {/* Try Admin Demo Button */}
+            <button
+              onClick={handleAdminDemoLogin}
+              className="flex items-center gap-2 px-5 py-2.5 bg-white border border-green-200 hover:border-green-400 hover:bg-green-50 text-green-800 text-sm font-semibold rounded-xl shadow-sm transition-all duration-200 group"
+            >
+              <span className="w-7 h-7 flex items-center justify-center bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                🛡️
+              </span>
+              Admin Panel
+            </button>
+          </div>
+        </div>
+
+        <div className="mx-auto w-full max-w-6xl text-center relative">
           <div className="relative z-10 inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-100 px-3 py-1 text-xs font-semibold text-[#0a5c47]">
             <span className="h-1.5 w-1.5 rounded-full bg-[#1d9e75]" />
             Smart medicine management
@@ -350,8 +406,9 @@ export function Landing() {
             <span className="text-[#0f6e56]">Stay ahead of your health.</span>
           </h1>
           <p className="relative z-10 mx-auto mt-4 max-w-[460px] text-[15px] leading-7 text-[#556b63]">
-            MedAlert reminds you when to take your medicines, alerts you when stock runs low,
-            and keeps your entire medication routine on track — automatically.
+            MedAlert reminds you when to take your medicines, alerts you when
+            stock runs low, and keeps your entire medication routine on track —
+            automatically.
           </p>
           <div className="relative z-10 mb-10 mt-8 flex flex-wrap justify-center gap-2.5">
             <Link
@@ -368,19 +425,16 @@ export function Landing() {
               Log in to your account
             </Link>
           </div>
-          <button
-            type="button"
-            onClick={() => navigate("/login?demo=admin")}
-            className="relative z-10 inline-flex items-center gap-1.5 text-sm text-gray-500 transition hover:text-emerald-700"
-          >
-            <ShieldCheck className="h-4 w-4" />
-            Try Admin Demo — no signup needed
-          </button>
 
           {/* Mobile: four trust cards (mockup hidden below md) */}
           <div className="relative z-10 mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-3 px-2 sm:grid-cols-2 md:hidden">
             {trustHighlights.map((item) => (
-              <TrustPillarCard key={item.label} item={item} side="left" layout="grid" />
+              <TrustPillarCard
+                key={item.label}
+                item={item}
+                side="left"
+                layout="grid"
+              />
             ))}
           </div>
 
@@ -403,7 +457,9 @@ export function Landing() {
                 </div>
                 <div className="p-4 text-left">
                   <div className="mb-3 flex items-center justify-between">
-                    <p className="text-sm font-bold text-[#0d1f1a]">Good morning!</p>
+                    <p className="text-sm font-bold text-[#0d1f1a]">
+                      Good morning!
+                    </p>
                     <p className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-[#0a5c47]">
                       3 reminders today
                     </p>
@@ -411,25 +467,35 @@ export function Landing() {
                   <div className="mb-3 grid grid-cols-4 gap-2">
                     <div className="rounded-lg border border-gray-200 bg-slate-50 p-2">
                       <p className="text-base font-bold text-[#0f6e56]">6</p>
-                      <p className="mt-0.5 text-[9px] text-gray-500">Medicines</p>
+                      <p className="mt-0.5 text-[9px] text-gray-500">
+                        Medicines
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-200 bg-slate-50 p-2">
                       <p className="text-base font-bold text-[#185fa5]">94%</p>
-                      <p className="mt-0.5 text-[9px] text-gray-500">Adherence</p>
+                      <p className="mt-0.5 text-[9px] text-gray-500">
+                        Adherence
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-200 bg-slate-50 p-2">
                       <p className="text-base font-bold text-[#ba7517]">2</p>
-                      <p className="mt-0.5 text-[9px] text-gray-500">Low stock</p>
+                      <p className="mt-0.5 text-[9px] text-gray-500">
+                        Low stock
+                      </p>
                     </div>
                     <div className="rounded-lg border border-gray-200 bg-slate-50 p-2">
                       <p className="text-base font-bold text-[#a32d2d]">1</p>
-                      <p className="mt-0.5 text-[9px] text-gray-500">Expiring soon</p>
+                      <p className="mt-0.5 text-[9px] text-gray-500">
+                        Expiring soon
+                      </p>
                     </div>
                   </div>
                   <div className="space-y-1.5">
                     <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-slate-50 px-2.5 py-2">
                       <span className="h-2 w-2 shrink-0 rounded-full bg-[#1d9e75]" />
-                      <p className="flex-1 text-[11px] font-semibold text-gray-800">Metformin 500mg</p>
+                      <p className="flex-1 text-[11px] font-semibold text-gray-800">
+                        Metformin 500mg
+                      </p>
                       <p className="text-[10px] text-gray-500">8:00 AM</p>
                       <p className="rounded bg-emerald-100 px-1.5 py-0.5 text-[9px] font-semibold text-[#0a5c47]">
                         Taken
@@ -437,7 +503,9 @@ export function Landing() {
                     </div>
                     <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-slate-50 px-2.5 py-2">
                       <span className="h-2 w-2 shrink-0 rounded-full bg-[#ba7517]" />
-                      <p className="flex-1 text-[11px] font-semibold text-gray-800">Amlodipine 5mg</p>
+                      <p className="flex-1 text-[11px] font-semibold text-gray-800">
+                        Amlodipine 5mg
+                      </p>
                       <p className="text-[10px] text-gray-500">2:00 PM</p>
                       <p className="rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-semibold text-[#854f0b]">
                         Pending
@@ -445,7 +513,9 @@ export function Landing() {
                     </div>
                     <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-slate-50 px-2.5 py-2">
                       <span className="h-2 w-2 shrink-0 rounded-full bg-[#185fa5]" />
-                      <p className="flex-1 text-[11px] font-semibold text-gray-800">Atorvastatin 10mg</p>
+                      <p className="flex-1 text-[11px] font-semibold text-gray-800">
+                        Atorvastatin 10mg
+                      </p>
                       <p className="text-[10px] text-gray-500">9:00 PM</p>
                       <p className="rounded bg-primary-100 px-1.5 py-0.5 text-[9px] font-semibold text-primary-800">
                         Upcoming
@@ -472,8 +542,12 @@ export function Landing() {
                 key={stat.label}
                 className={`px-7 text-center ${index > 0 ? "border-l border-emerald-100" : ""}`}
               >
-                <p className="text-[22px] font-extrabold text-[#0f6e56]">{stat.num}</p>
-                <p className="mt-0.5 text-[11px] text-[#6b8880]">{stat.label}</p>
+                <p className="text-[22px] font-extrabold text-[#0f6e56]">
+                  {stat.num}
+                </p>
+                <p className="mt-0.5 text-[11px] text-[#6b8880]">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
@@ -484,15 +558,22 @@ export function Landing() {
         id="features"
         data-reveal-id="features"
         className={`flex min-h-[calc(100dvh-3.5rem)] scroll-mt-14 flex-col border-b border-gray-200 px-4 py-8 transition-all duration-700 sm:px-6 sm:py-10 ${
-          visibleSections.features ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          visibleSections.features
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0"
         }`}
       >
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-between gap-8 sm:gap-10">
           <header className="shrink-0 space-y-2">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">Features</div>
-            <div className="text-[22px] font-bold text-[#111]">Everything your health routine needs</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">
+              Features
+            </div>
+            <div className="text-[22px] font-bold text-[#111]">
+              Everything your health routine needs
+            </div>
             <p className="max-w-2xl text-sm leading-6 text-gray-600">
-              Built for patients, caregivers, and anyone managing a daily medication schedule.
+              Built for patients, caregivers, and anyone managing a daily
+              medication schedule.
             </p>
           </header>
           <div className="flex min-h-0 w-full flex-1 flex-col lg:pt-2">
@@ -505,8 +586,12 @@ export function Landing() {
                   <div className="mb-2.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#e1f5ee]">
                     {feature.svg}
                   </div>
-                  <div className="text-[13px] font-semibold text-[#111]">{feature.title}</div>
-                  <div className="mt-1 flex-1 text-xs leading-5 text-gray-600">{feature.description}</div>
+                  <div className="text-[13px] font-semibold text-[#111]">
+                    {feature.title}
+                  </div>
+                  <div className="mt-1 flex-1 text-xs leading-5 text-gray-600">
+                    {feature.description}
+                  </div>
                 </div>
               ))}
             </div>
@@ -518,13 +603,19 @@ export function Landing() {
         id="how-it-works"
         data-reveal-id="how"
         className={`flex min-h-[calc(100dvh-3.5rem)] scroll-mt-14 flex-col border-b border-gray-200 px-4 py-8 transition-all duration-700 sm:px-6 sm:py-10 ${
-          visibleSections.how ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          visibleSections.how
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0"
         }`}
       >
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-between gap-8 sm:gap-10">
           <header className="shrink-0 space-y-2">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">How it works</div>
-            <div className="text-[22px] font-bold text-[#111]">Up and running in 3 steps</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">
+              How it works
+            </div>
+            <div className="text-[22px] font-bold text-[#111]">
+              Up and running in 3 steps
+            </div>
           </header>
           <div className="flex min-h-0 flex-1 flex-col justify-end sm:justify-center lg:max-w-3xl lg:justify-evenly lg:py-2">
             {[
@@ -549,11 +640,17 @@ export function Landing() {
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0f6e56] text-[13px] font-bold text-white">
                     {index + 1}
                   </div>
-                  {index < arr.length - 1 && <div className="my-1 w-px flex-1 bg-gray-300" />}
+                  {index < arr.length - 1 && (
+                    <div className="my-1 w-px flex-1 bg-gray-300" />
+                  )}
                 </div>
                 <div className="min-w-0 flex-1 pb-2 pt-1">
-                  <div className="text-sm font-semibold text-[#111]">{step.title}</div>
-                  <div className="mt-1 text-[13px] leading-6 text-gray-600">{step.description}</div>
+                  <div className="text-sm font-semibold text-[#111]">
+                    {step.title}
+                  </div>
+                  <div className="mt-1 text-[13px] leading-6 text-gray-600">
+                    {step.description}
+                  </div>
                 </div>
               </div>
             ))}
@@ -564,25 +661,35 @@ export function Landing() {
       <div
         data-reveal-id="stats"
         className={`bg-[#0f6e56] px-4 py-7 transition-all duration-700 sm:px-6 ${
-          visibleSections.stats ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          visibleSections.stats
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0"
         }`}
       >
         <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-4 sm:grid-cols-4">
           <div className="text-center">
             <div className="text-2xl font-bold text-white">98%</div>
-            <div className="mt-0.5 text-xs text-emerald-200">Reminder delivery rate</div>
+            <div className="mt-0.5 text-xs text-emerald-200">
+              Reminder delivery rate
+            </div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-white">&lt;1s</div>
-            <div className="mt-0.5 text-xs text-emerald-200">Average alert latency</div>
+            <div className="mt-0.5 text-xs text-emerald-200">
+              Average alert latency
+            </div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-white">3</div>
-            <div className="mt-0.5 text-xs text-emerald-200">Notification channels</div>
+            <div className="mt-0.5 text-xs text-emerald-200">
+              Notification channels
+            </div>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-white">24/7</div>
-            <div className="mt-0.5 text-xs text-emerald-200">Background job monitoring</div>
+            <div className="mt-0.5 text-xs text-emerald-200">
+              Background job monitoring
+            </div>
           </div>
         </div>
       </div>
@@ -590,20 +697,32 @@ export function Landing() {
       <section
         data-reveal-id="testimonials"
         className={`border-b border-gray-200 px-4 py-10 transition-all duration-700 sm:px-6 ${
-          visibleSections.testimonials ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          visibleSections.testimonials
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0"
         }`}
       >
         <div className="mx-auto w-full max-w-6xl">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">Testimonials</div>
-          <div className="mt-2 text-[22px] font-bold text-[#111]">Trusted by real users</div>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">
+            Testimonials
+          </div>
+          <div className="mt-2 text-[22px] font-bold text-[#111]">
+            Trusted by real users
+          </div>
           <div className="mt-2 text-sm leading-6 text-gray-600">
-            Here&apos;s what people managing daily medications say about MedAlert.
+            Here&apos;s what people managing daily medications say about
+            MedAlert.
           </div>
           <div className="mt-7 grid grid-cols-1 gap-3 md:grid-cols-2">
             {testimonials.map((item) => (
-              <div key={item.name} className="rounded-[10px] border border-[#e8edf0] bg-[#f8fafb] p-4">
+              <div
+                key={item.name}
+                className="rounded-[10px] border border-[#e8edf0] bg-[#f8fafb] p-4"
+              >
                 <div className="mb-2 text-xs text-amber-500">{item.stars}</div>
-                <div className="text-[13px] italic leading-6 text-gray-700">{item.quote}</div>
+                <div className="text-[13px] italic leading-6 text-gray-700">
+                  {item.quote}
+                </div>
                 <div className="mt-3 flex items-center gap-2">
                   <div
                     className={`flex h-[30px] w-[30px] items-center justify-center rounded-full text-[11px] font-semibold text-white ${
@@ -619,7 +738,9 @@ export function Landing() {
                     {item.initials}
                   </div>
                   <div>
-                    <div className="text-xs font-semibold text-[#111]">{item.name}</div>
+                    <div className="text-xs font-semibold text-[#111]">
+                      {item.name}
+                    </div>
                     <div className="text-[11px] text-gray-500">{item.role}</div>
                   </div>
                 </div>
@@ -633,17 +754,26 @@ export function Landing() {
         id="faq"
         data-reveal-id="faq"
         className={`scroll-mt-14 border-b border-gray-200 px-4 py-10 transition-all duration-700 sm:px-6 ${
-          visibleSections.faq ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          visibleSections.faq
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0"
         }`}
       >
         <div className="mx-auto w-full max-w-6xl">
-          <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">FAQ</div>
-          <div className="mt-2 text-[22px] font-bold text-[#111]">Common questions</div>
+          <div className="text-[11px] font-semibold uppercase tracking-[0.08em] text-[#0f6e56]">
+            FAQ
+          </div>
+          <div className="mt-2 text-[22px] font-bold text-[#111]">
+            Common questions
+          </div>
           <div className="mt-4 space-y-4">
             {faqItems.map((item, index) => {
               const isOpen = openFaq === index;
               return (
-                <div key={item.question} className="overflow-hidden rounded-lg border border-[#e8edf0]">
+                <div
+                  key={item.question}
+                  className="overflow-hidden rounded-lg border border-[#e8edf0]"
+                >
                   <button
                     type="button"
                     className="flex w-full items-center justify-between bg-white px-3.5 py-3 text-left text-[13px] font-medium text-[#111] hover:bg-[#f8fafb]"
@@ -656,7 +786,11 @@ export function Landing() {
                       ▶
                     </span>
                   </button>
-                  {isOpen && <div className="px-3.5 pb-3 text-[13px] leading-6 text-gray-600">{item.answer}</div>}
+                  {isOpen && (
+                    <div className="px-3.5 pb-3 text-[13px] leading-6 text-gray-600">
+                      {item.answer}
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -667,11 +801,15 @@ export function Landing() {
       <section
         data-reveal-id="cta"
         className={`bg-[#f8fafb] px-4 py-12 text-center transition-all duration-700 sm:px-6 ${
-          visibleSections.cta ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
+          visibleSections.cta
+            ? "translate-y-0 opacity-100"
+            : "translate-y-5 opacity-0"
         }`}
       >
         <div className="mx-auto w-full max-w-6xl">
-          <h2 className="text-2xl font-bold text-[#111]">Ready to take control of your health?</h2>
+          <h2 className="text-2xl font-bold text-[#111]">
+            Ready to take control of your health?
+          </h2>
           <p className="mt-2.5 text-sm text-gray-600">
             Join MedAlert today. Set up your first reminder in under 2 minutes.
           </p>
@@ -694,7 +832,9 @@ export function Landing() {
 
       <footer className="border-t border-gray-200 px-4 py-5 sm:px-6">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2">
-          <div className="text-xs text-gray-500">© 2025 MedAlert. All rights reserved.</div>
+          <div className="text-xs text-gray-500">
+            © 2025 MedAlert. All rights reserved.
+          </div>
           <div className="flex gap-4">
             <a href="#" className="text-xs text-gray-500 hover:text-gray-700">
               Privacy

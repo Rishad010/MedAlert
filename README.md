@@ -1,6 +1,10 @@
 # 🏥 MedAlert — Smart Medicine Reminder & Stock Alert
 
-[![CI](https://github.com/Rishad010/MedAlert/actions/workflows/ci.yml/badge.svg)](https://github.com/Rishad010/MedAlert/actions/workflows/ci.yml)
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/Live%20Demo-View%20App-blue?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
+  <a href="https://github.com/Rishad010/MedAlert/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Rishad010/MedAlert/ci.yml?branch=main&style=for-the-badge&label=CI%20Status" alt="CI Status"></a>
+  <a href="#-tech-stack"><img src="https://img.shields.io/badge/Tech%20Stack-MERN-green?style=for-the-badge&logo=mongodb" alt="Tech Stack"></a>
+</p>
 
 > **Live Demo:** _Coming soon after deployment_
 
@@ -9,6 +13,7 @@ A full-stack MERN web application that helps users manage their medication sched
 ---
 
 ## 📋 Table of Contents
+
 - [🧠 Project Overview](#project-overview)
 - [🛠️ Tech Stack](#tech-stack)
 - [🏗️ Architecture](#architecture)
@@ -23,6 +28,7 @@ A full-stack MERN web application that helps users manage their medication sched
 ---
 
 ## 🧠 Project Overview
+
 Millions of people miss medicine doses because life gets busy, schedules become inconsistent, or reminders are easy to overlook. Many users also realize too late that their medicine stock is running low, which leads to skipped treatment and avoidable health risk.
 
 MedAlert solves this with a complete medication management workflow: automated reminders, low-stock and expiry alerts, and a built-in AI assistant for quick medicine-related help. It combines adherence tracking with proactive notifications so users stay informed and consistent every day.
@@ -33,13 +39,13 @@ This project is designed for patients, caregivers, and anyone following a daily 
 
 ## 🛠️ Tech Stack
 
-| Category | Technology | Purpose |
-|---|---|---|
-| Frontend | React 19, TypeScript, Vite, Tailwind CSS, React Query, Recharts | Fast SPA UI, typed components, state/query management, and data visualization |
-| Backend | Node.js, Express 5, ESM | REST API, authentication, business logic, and modern module architecture |
-| Database | MongoDB, Mongoose | Persistent storage for users, medicines, reminders, and pharmacy data |
-| Jobs & Notifications | Agenda scheduler, Nodemailer, Twilio, Web Push | Scheduled reminders and multi-channel delivery (email, SMS, browser push) |
-| Testing & CI | Jest, Supertest, Vitest, React Testing Library, GitHub Actions | Backend and frontend automated tests with CI checks on code changes |
+| Category             | Technology                                                      | Purpose                                                                       |
+| -------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Frontend             | React 19, TypeScript, Vite, Tailwind CSS, React Query, Recharts | Fast SPA UI, typed components, state/query management, and data visualization |
+| Backend              | Node.js, Express 5, ESM                                         | REST API, authentication, business logic, and modern module architecture      |
+| Database             | MongoDB, Mongoose                                               | Persistent storage for users, medicines, reminders, and pharmacy data         |
+| Jobs & Notifications | Agenda scheduler, Nodemailer, Twilio, Web Push                  | Scheduled reminders and multi-channel delivery (email, SMS, browser push)     |
+| Testing & CI         | Jest, Supertest, Vitest, React Testing Library, GitHub Actions  | Backend and frontend automated tests with CI checks on code changes           |
 
 ---
 
@@ -63,42 +69,50 @@ flowchart LR
 ## ✨ Features
 
 **Auth**
+
 - [x] JWT authentication
 - [x] Role-based access (user/admin)
 - [x] Protected routes
 
 **Medicines**
+
 - [x] Full CRUD
 - [x] Medicine autocomplete
 - [x] Expiry date tracking
 
 **Reminders**
+
 - [x] Agenda-powered scheduled reminders
 - [x] Follow-up nudges for unacknowledged doses
 - [x] Recurring daily scheduling
 
 **Notifications**
+
 - [x] Browser push (VAPID)
 - [x] Email (Nodemailer/Gmail)
 - [x] SMS (Twilio)
 - [x] All channels toggleable per user
 
 **Dashboard**
+
 - [x] Adherence trend chart
 - [x] Stock/expiry indicators
 - [x] KPI cards
 
 **AI Assistant**
+
 - [x] Gemini-powered chat with medicine-specific tool actions
 - [x] Streaming SSE responses
 
 **Pharmacy**
+
 - [x] Product catalog
 - [x] Cart
 - [x] Order placement
 - [x] Admin order management with tracking
 
 **DevOps**
+
 - [x] GitHub Actions CI pipeline
 - [x] Jest + Supertest backend tests
 - [x] Vitest + RTL frontend tests
@@ -107,12 +121,12 @@ flowchart LR
 
 ## 📸 Screenshots
 
-| Landing Page | Dashboard |
-|---|---|
+| Landing Page             | Dashboard                |
+| ------------------------ | ------------------------ |
 | _Screenshot coming soon_ | _Screenshot coming soon_ |
 
-| Add Medicine | AI Assistant |
-|---|---|
+| Add Medicine             | AI Assistant             |
+| ------------------------ | ------------------------ |
 | _Screenshot coming soon_ | _Screenshot coming soon_ |
 
 > **Note:** Add screenshots by replacing the placeholder text with: `![Description](./screenshots/filename.png)` after taking screenshots of the live app.
@@ -121,39 +135,41 @@ flowchart LR
 
 ## 📡 API Reference
 
-| Method | Endpoint | Auth Required | Description |
-|---|---|---|---|
-| POST | `/api/auth/register` | No | Register a new user account |
-| POST | `/api/auth/login` | No | Log in and receive JWT token |
-| GET | `/api/auth/me` | Yes | Fetch current authenticated user profile |
-| PATCH | `/api/auth/profile` | Yes | Update user profile and notification preferences |
-| GET | `/api/medicines/` | Yes | List medicines for logged-in user |
-| POST | `/api/medicines/` | Yes | Create a new medicine entry |
-| GET | `/api/medicines/:id` | Yes | Get a single medicine by ID (owner only) |
-| PUT | `/api/medicines/:id` | Yes | Update a medicine by ID |
-| DELETE | `/api/medicines/:id` | Yes | Delete a medicine by ID |
-| POST | `/api/medicines/reschedule-reminders` | Yes | Rebuild all reminder jobs for the logged-in user |
-| GET | `/api/dashboard/` | Yes | Fetch dashboard KPIs, trends, and adherence insights |
-| GET | `/api/reminders/` | Yes | Fetch reminder logs/history |
-| PUT | `/api/reminders/:id/acknowledge` | Yes | Mark a reminder as acknowledged/taken |
-| GET | `/api/pharmacy/products` | Yes | Fetch pharmacy product catalog |
-| POST | `/api/pharmacy/orders` | Yes | Place a new pharmacy order |
-| GET | `/api/pharmacy/orders` | Yes (Admin) | List all pharmacy orders for admin management |
-| PUT | `/api/pharmacy/orders/:id/status` | Yes (Admin) | Update pharmacy order status/tracking |
-| POST | `/api/push/subscribe` | Yes | Save browser push subscription for user |
-| DELETE | `/api/push/unsubscribe` | Yes | Remove browser push subscription |
-| POST | `/api/assistant/chat` | Yes | Chat with AI assistant using streaming responses |
+| Method | Endpoint                              | Auth Required | Description                                          |
+| ------ | ------------------------------------- | ------------- | ---------------------------------------------------- |
+| POST   | `/api/auth/register`                  | No            | Register a new user account                          |
+| POST   | `/api/auth/login`                     | No            | Log in and receive JWT token                         |
+| GET    | `/api/auth/me`                        | Yes           | Fetch current authenticated user profile             |
+| PATCH  | `/api/auth/profile`                   | Yes           | Update user profile and notification preferences     |
+| GET    | `/api/medicines/`                     | Yes           | List medicines for logged-in user                    |
+| POST   | `/api/medicines/`                     | Yes           | Create a new medicine entry                          |
+| GET    | `/api/medicines/:id`                  | Yes           | Get a single medicine by ID (owner only)             |
+| PUT    | `/api/medicines/:id`                  | Yes           | Update a medicine by ID                              |
+| DELETE | `/api/medicines/:id`                  | Yes           | Delete a medicine by ID                              |
+| POST   | `/api/medicines/reschedule-reminders` | Yes           | Rebuild all reminder jobs for the logged-in user     |
+| GET    | `/api/dashboard/`                     | Yes           | Fetch dashboard KPIs, trends, and adherence insights |
+| GET    | `/api/reminders/`                     | Yes           | Fetch reminder logs/history                          |
+| PUT    | `/api/reminders/:id/acknowledge`      | Yes           | Mark a reminder as acknowledged/taken                |
+| GET    | `/api/pharmacy/products`              | Yes           | Fetch pharmacy product catalog                       |
+| POST   | `/api/pharmacy/orders`                | Yes           | Place a new pharmacy order                           |
+| GET    | `/api/pharmacy/orders`                | Yes (Admin)   | List all pharmacy orders for admin management        |
+| PUT    | `/api/pharmacy/orders/:id/status`     | Yes (Admin)   | Update pharmacy order status/tracking                |
+| POST   | `/api/push/subscribe`                 | Yes           | Save browser push subscription for user              |
+| DELETE | `/api/push/unsubscribe`               | Yes           | Remove browser push subscription                     |
+| POST   | `/api/assistant/chat`                 | Yes           | Chat with AI assistant using streaming responses     |
 
 ---
 
 ## 🚀 Local Setup
 
 ### Prerequisites
+
 - Node.js 18+
 - MongoDB (local or Atlas)
 - Git
 
 ### Steps
+
 1. Clone the repo.
 2. Set up backend:
    - `cd backend`
@@ -180,6 +196,7 @@ flowchart LR
 ## 🧪 Testing
 
 ### Backend tests (Jest + Supertest)
+
 ```bash
 cd backend
 npm test
@@ -188,6 +205,7 @@ npm test
 Covers: auth register/login/me routes with in-memory MongoDB via mongodb-memory-server
 
 ### Frontend tests (Vitest + React Testing Library)
+
 ```bash
 cd frontend
 npm test
@@ -196,6 +214,7 @@ npm test
 Covers: Login component rendering and validation behaviour
 
 ### CI Pipeline
+
 GitHub Actions runs both test suites automatically on every push and pull request to `main`.
 
 See: [GitHub Actions](https://github.com/Rishad010/MedAlert/actions)
@@ -205,6 +224,7 @@ See: [GitHub Actions](https://github.com/Rishad010/MedAlert/actions)
 ## ☁️ Deployment
 
 ### Backend → Render
+
 1. Create a Web Service on [render.com](https://render.com).
 2. Connect your GitHub repository.
 3. Set:
@@ -215,6 +235,7 @@ See: [GitHub Actions](https://github.com/Rishad010/MedAlert/actions)
 5. Set `NODE_ENV=production`.
 
 ### Frontend → Vercel
+
 1. Import the project on [vercel.com](https://vercel.com).
 2. Set Root Directory to `frontend`.
 3. Add `VITE_API_URL` pointing to your Render backend URL + `/api`.
@@ -222,9 +243,11 @@ See: [GitHub Actions](https://github.com/Rishad010/MedAlert/actions)
 5. Deploy.
 
 ### Post-deployment
+
 After both services are deployed, go back to Render and set `CLIENT_URL` to your Vercel frontend URL to enable CORS correctly.
 
 ---
 
 ## 👤 Author
+
 Rishad | GitHub: Rishad010

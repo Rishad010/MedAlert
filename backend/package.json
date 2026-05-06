@@ -12,7 +12,8 @@
     "start:all": "npm run start",
     "test": "node --experimental-vm-modules ./node_modules/jest-cli/bin/jest.js --forceExit",
     "seed": "node scripts/seedProducts.js",
-    "seed:admin": "node scripts/seedAdmin.js"
+    "seed:admin": "node scripts/seedAdmin.js",
+    "seed:demo": "node scripts/seedDemo.js"
   },
   "keywords": [],
   "author": "",

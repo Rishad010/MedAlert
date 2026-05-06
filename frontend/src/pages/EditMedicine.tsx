@@ -6,7 +6,10 @@ import { medicinesAPI } from "../services/api";
 import { TimePicker } from "../components/TimePicker";
 import { MedicineAutocomplete } from "../components/MedicineAutocomplete";
 import { isValidMedicineName } from "../data/medicineNames";
-import { isValidDosage, getDosageErrorMessage } from "../utils/dosageValidation";
+import {
+  isValidDosage,
+  getDosageErrorMessage,
+} from "../utils/dosageValidation";
 
 export function EditMedicine() {
   const navigate = useNavigate();
@@ -58,7 +61,7 @@ export function EditMedicine() {
   }, [medicine]);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({
       ...formData,
@@ -213,7 +216,9 @@ export function EditMedicine() {
                 id="dosage"
                 required
                 className={`mt-1 input-field ${
-                  showDosageError && formData.dosage.trim() !== "" && !isValidDosage(formData.dosage)
+                  showDosageError &&
+                  formData.dosage.trim() !== "" &&
+                  !isValidDosage(formData.dosage)
                     ? "border-danger-500 focus:border-danger-500 focus:ring-danger-500"
                     : ""
                 }`}
@@ -224,14 +229,17 @@ export function EditMedicine() {
                   setShowDosageError(false);
                 }}
               />
-              {showDosageError && formData.dosage.trim() !== "" && !isValidDosage(formData.dosage) && (
-                <div className="mt-1 flex items-center text-sm text-danger-600">
-                  <AlertCircle className="h-4 w-4 mr-1" />
-                  <span>{getDosageErrorMessage()}</span>
-                </div>
-              )}
+              {showDosageError &&
+                formData.dosage.trim() !== "" &&
+                !isValidDosage(formData.dosage) && (
+                  <div className="mt-1 flex items-center text-sm text-danger-600">
+                    <AlertCircle className="h-4 w-4 mr-1" />
+                    <span>{getDosageErrorMessage()}</span>
+                  </div>
+                )}
               <p className="mt-1 text-sm text-gray-500">
-                Enter dosage with number and unit (e.g., "1 tablet", "500mg", "5ml")
+                Enter dosage with number and unit (e.g., "1 tablet", "500mg",
+                "5ml")
               </p>
             </div>
 
