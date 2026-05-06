@@ -92,6 +92,8 @@ export function AdminOrders() {
                       <select
                         value={formState.status}
                         onChange={(e) => setFormState({ ...formState, status: e.target.value })}
+                        aria-label="Order status"
+                        title="Order status"
                         className="w-full rounded border border-gray-300 px-2 py-1"
                       >
                         <option value="Received">Received</option>

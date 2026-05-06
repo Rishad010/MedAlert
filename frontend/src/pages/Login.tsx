@@ -17,7 +17,7 @@ export function Login() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm<LoginFormData>({
     defaultValues: {
@@ -33,6 +33,12 @@ export function Login() {
       setShowDemoBanner(true);
     }
   }, [searchParams, setValue]);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard", { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (formData: LoginFormData) => {
     setError("");

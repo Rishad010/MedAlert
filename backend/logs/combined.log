@@ -806,3 +806,14 @@
 {"level":"http","message":"\u001b[0mGET /api/admin/orders \u001b[36m304\u001b[0m 15.141 ms - -\u001b[0m","timestamp":"2026-05-06 14:44:27"}
 {"level":"http","message":"\u001b[0mGET /api/admin/stock-alerts \u001b[36m304\u001b[0m 28.134 ms - -\u001b[0m","timestamp":"2026-05-06 14:44:29"}
 {"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 217.434 ms - 270\u001b[0m","timestamp":"2026-05-06 14:45:11"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 183.764 ms - 270\u001b[0m","timestamp":"2026-05-06 14:58:59"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 27.730 ms - 2101\u001b[0m","timestamp":"2026-05-06 14:58:59"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 172.358 ms - 270\u001b[0m","timestamp":"2026-05-06 14:59:41"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[36m304\u001b[0m 30.141 ms - -\u001b[0m","timestamp":"2026-05-06 14:59:41"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 175.996 ms - 275\u001b[0m","timestamp":"2026-05-06 14:59:57"}
+{"level":"http","message":"\u001b[0mGET /api/admin/stats \u001b[36m304\u001b[0m 42.330 ms - -\u001b[0m","timestamp":"2026-05-06 15:00:03"}
+{"level":"http","message":"\u001b[0mGET /api/admin/analytics \u001b[36m304\u001b[0m 42.065 ms - -\u001b[0m","timestamp":"2026-05-06 15:00:03"}
+{"level":"http","message":"\u001b[0mGET /api/admin/users \u001b[36m304\u001b[0m 52.377 ms - -\u001b[0m","timestamp":"2026-05-06 15:00:06"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 12.272 ms - 2\u001b[0m","timestamp":"2026-05-06 15:00:16"}
+{"level":"http","message":"\u001b[0mGET /api/reminders \u001b[32m200\u001b[0m 9.806 ms - 2\u001b[0m","timestamp":"2026-05-06 15:00:18"}
+{"level":"http","message":"\u001b[0mGET /api/pharmacy/products \u001b[36m304\u001b[0m 13.947 ms - -\u001b[0m","timestamp":"2026-05-06 15:00:20"}

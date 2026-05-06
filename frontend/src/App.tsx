@@ -23,12 +23,12 @@ import { AdminOrders } from "./pages/admin/AdminOrders";
 import { AdminStockAlerts } from "./pages/admin/AdminStockAlerts";
 import { AdminAnalytics } from "./pages/admin/AdminAnalytics";
 
-// Blocks unauthenticated users — redirects to /login
+// Blocks unauthenticated users — redirects to landing
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
 
   if (loading) return <Spinner />;
-  return user ? <>{children}</> : <Navigate to="/login" replace />;
+  return user ? <>{children}</> : <Navigate to="/" replace />;
 }
 
 // Blocks non-admin users — redirects to /dashboard
@@ -36,7 +36,7 @@ function AdminRoute({ children }: { children: React.ReactNode }) { // 👈 added
   const { user, loading, isAdmin } = useAuth();
 
   if (loading) return <Spinner />;
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/" replace />;
   if (!isAdmin) return <Navigate to="/dashboard" replace />;
   return <>{children}</>;
 }

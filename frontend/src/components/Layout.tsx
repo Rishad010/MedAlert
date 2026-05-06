@@ -22,7 +22,6 @@ export function Layout() {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
   };
 
   const isActive = (href: string) => location.pathname === href;
