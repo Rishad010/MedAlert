@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import toast from "react-hot-toast";
-import { AlertCircle, Pill } from "lucide-react";
+import { AlertCircle, Eye, EyeOff, Pill } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 
 const resetPasswordSchema = z
@@ -25,6 +25,8 @@ export function ResetPassword() {
   const { resetPasswordWithToken } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -96,11 +98,21 @@ export function ResetPassword() {
 
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">New password</label>
-            <input
-              type="password"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none"
-              {...register("newPassword")}
-            />
+            <div className="relative">
+              <input
+                type={showNewPassword ? "text" : "password"}
+                className="w-full rounded-md border border-gray-300 px-3 py-2 pr-10 text-sm focus:border-emerald-500 focus:outline-none"
+                {...register("newPassword")}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
+                onClick={() => setShowNewPassword((prev) => !prev)}
+                aria-label={showNewPassword ? "Hide new password" : "Show new password"}
+              >
+                {showNewPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+              </button>
+            </div>
             {errors.newPassword?.message && (
               <p className="mt-1 text-xs text-red-600">{errors.newPassword.message}</p>
             )}
@@ -108,11 +120,25 @@ export function ResetPassword() {
 
           <div>
             <label className="mb-1 block text-sm font-medium text-gray-700">Confirm password</label>
-            <input
-              type="password"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none"
-              {...register("confirmPassword")}
-            />
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                className="w-full rounded-md border border-gray-300 px-3 py-2 pr-10 text-sm focus:border-emerald-500 focus:outline-none"
+                {...register("confirmPassword")}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+              >
+                {showConfirmPassword ? (
+                  <EyeOff className="h-5 w-5" />
+                ) : (
+                  <Eye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.confirmPassword?.message && (
               <p className="mt-1 text-xs text-red-600">{errors.confirmPassword.message}</p>
             )}
