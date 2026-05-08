@@ -160,6 +160,7 @@ router.post("/chat", protect, async (req, res, next) => {
     }));
 
     const candidateModels = [
+      "gemini-1.5-flash",
       process.env.GEMINI_MODEL,
       "gemini-flash-latest",
       "gemini-2.5-flash",
@@ -229,6 +230,15 @@ router.post("/chat", protect, async (req, res, next) => {
         return;
       } catch (err) {
         lastErr = err;
+        
+        // Full error logging for Render
+        console.error(`Gemini API error with model "${modelName}":`, {
+          message: err.message,
+          stack: err.stack,
+          status: err.status,
+          statusText: err.statusText,
+          details: err.details
+        });
         const msg = String(err?.message || err);
 
         if (
@@ -246,6 +256,16 @@ router.post("/chat", protect, async (req, res, next) => {
 
     throw lastErr;
   } catch (err) {
+    
+    // Full error logging for Render
+    console.error(`Assistant API error:`, {
+      message: err.message,
+      stack: err.stack,
+      status: err.status,
+      statusText: err.statusText,
+      details: err.details
+    });
+    
     logger.error(`Assistant error: ${err.message}`);
     if (!res.headersSent) {
       next(err);
