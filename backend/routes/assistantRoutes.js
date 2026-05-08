@@ -1,19 +1,12 @@
 // backend/routes/assistantRoutes.js
 import express from "express";
-import {
-  GoogleGenerativeAI,
-  SchemaType,
-  FunctionCallingMode,
-} from "@google/generative-ai";
+import { SchemaType, FunctionCallingMode } from "@google/generative-ai";
 import { protect } from "../middleware/authMiddleware.js";
 import Medicine from "../models/Medicine.js";
 import logger from "../utils/logger.js";
 import { dispatchMedicineTool } from "../utils/assistantMedicineActions.js";
 
 const router = express.Router();
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY, {
-  apiVersion: "v1",
-});
 
 const medicineToolDeclarations = [
   {
@@ -171,52 +164,98 @@ router.post("/chat", protect, async (req, res, next) => {
     let lastErr;
     for (const modelName of candidateModels) {
       try {
-        const model = genAI.getGenerativeModel({
-          model: modelName,
-          systemInstruction: systemPrompt,
-          tools,
-          toolConfig,
-        });
+        // Build contents with history + current message
+        const contents = [
+          ...geminiHistory,
+          {
+            role: "user",
+            parts: [{ text: message.trim() }],
+          },
+        ];
 
-        const chat = model.startChat({ history: geminiHistory });
-
-        let result = await chat.sendMessage(message.trim());
         let medicinesChanged = false;
         let guard = 0;
+        let currentContents = contents;
 
         while (guard++ < 10) {
-          const calls = result.response.functionCalls?.();
-          if (calls?.length) {
-            const parts = [];
-            for (const call of calls) {
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1/models/${modelName}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                contents: currentContents,
+                systemInstruction: {
+                  parts: [{ text: systemPrompt }],
+                },
+                tools: tools,
+                toolConfig: toolConfig,
+                generationConfig: {
+                  temperature: 0.7,
+                  maxOutputTokens: 1024,
+                },
+              }),
+            },
+          );
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.error?.message || "Gemini API error");
+          }
+
+          const candidate = data.candidates?.[0];
+          if (!candidate) {
+            throw new Error("No candidates returned from Gemini API");
+          }
+
+          const parts = candidate.content?.parts || [];
+          const functionCalls = parts.filter((part) => part.functionCall);
+
+          if (functionCalls.length) {
+            const responseParts = [];
+            for (const call of functionCalls) {
               const out = await dispatchMedicineTool(
                 req.user._id,
-                call.name,
-                call.args,
+                call.functionCall.name,
+                call.functionCall.args,
               );
               if (out.success) medicinesChanged = true;
-              parts.push({
+              responseParts.push({
                 functionResponse: {
-                  name: call.name,
+                  name: call.functionCall.name,
                   response: out,
                 },
               });
             }
-            result = await chat.sendMessage(parts);
+
+            // Add model response and function responses to conversation
+            currentContents = [
+              ...currentContents,
+              {
+                role: "model",
+                parts: parts,
+              },
+              {
+                role: "user",
+                parts: responseParts,
+              },
+            ];
             continue;
           }
 
-          let replyText = "";
-          try {
-            replyText = result.response.text() || "";
-          } catch (e) {
-            logger.warn(`Assistant text() error: ${e.message}`);
-          }
+          // Get text response
+          const replyText = parts.find((part) => part.text)?.text || "";
           if (!replyText.trim()) {
-            replyText =
-              "I couldn't produce a reply. Try rephrasing, or check that your request is about medicines.";
+            streamTextToClient(
+              res,
+              "I couldn't produce a reply. Try rephrasing, or check that your request is about medicines.",
+            );
+          } else {
+            streamTextToClient(res, replyText);
           }
-          streamTextToClient(res, replyText);
           break;
         }
 
