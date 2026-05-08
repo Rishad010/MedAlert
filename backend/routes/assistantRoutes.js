@@ -11,7 +11,9 @@ import logger from "../utils/logger.js";
 import { dispatchMedicineTool } from "../utils/assistantMedicineActions.js";
 
 const router = express.Router();
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY, {
+  apiVersion: "v1",
+});
 
 const medicineToolDeclarations = [
   {
@@ -160,10 +162,10 @@ router.post("/chat", protect, async (req, res, next) => {
     }));
 
     const candidateModels = [
-      process.env.GEMINI_MODEL || "gemini-1.5-flash",
+      process.env.GEMINI_MODEL || "gemini-1.5-flash-latest",
+      "gemini-1.5-flash-latest",
       "gemini-1.5-flash",
       "gemini-flash-latest",
-      "gemini-2.5-flash",
     ].filter(Boolean);
 
     let lastErr;
@@ -239,6 +241,18 @@ router.post("/chat", protect, async (req, res, next) => {
           details: err.details,
         });
         const msg = String(err?.message || err);
+
+        // Check for region restriction error
+        if (
+          msg.includes("400") &&
+          (msg.includes("User location not supported") ||
+            msg.includes("location not supported"))
+        ) {
+          logger.error(`Gemini API region restriction: ${msg}`);
+          throw new Error(
+            "AI assistant is temporarily unavailable in this region.",
+          );
+        }
 
         if (
           msg.includes("404") ||
