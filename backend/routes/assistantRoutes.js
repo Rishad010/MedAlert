@@ -155,10 +155,8 @@ router.post("/chat", protect, async (req, res, next) => {
     }));
 
     const candidateModels = [
-      process.env.GEMINI_MODEL || "gemini-1.5-flash-latest",
-      "gemini-1.5-flash-latest",
+      process.env.GEMINI_MODEL || "gemini-1.5-flash",
       "gemini-1.5-flash",
-      "gemini-flash-latest",
     ].filter(Boolean);
 
     let lastErr;
