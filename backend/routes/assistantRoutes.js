@@ -186,12 +186,19 @@ router.post("/chat", protect, async (req, res, next) => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                contents: currentContents,
-                systemInstruction: {
-                  parts: [{ text: systemPrompt }],
-                },
-                tools: tools,
-                toolConfig: toolConfig,
+                contents: [
+                  ...currentContents.slice(0, -1), // All history except current user message
+                  {
+                    role: "user",
+                    parts: [
+                      {
+                        text: systemPrompt
+                          ? `${systemPrompt}\n\nUser: ${message.trim()}`
+                          : message.trim(),
+                      },
+                    ],
+                  },
+                ],
                 generationConfig: {
                   temperature: 0.7,
                   maxOutputTokens: 1024,
@@ -212,41 +219,7 @@ router.post("/chat", protect, async (req, res, next) => {
           }
 
           const parts = candidate.content?.parts || [];
-          const functionCalls = parts.filter((part) => part.functionCall);
-
-          if (functionCalls.length) {
-            const responseParts = [];
-            for (const call of functionCalls) {
-              const out = await dispatchMedicineTool(
-                req.user._id,
-                call.functionCall.name,
-                call.functionCall.args,
-              );
-              if (out.success) medicinesChanged = true;
-              responseParts.push({
-                functionResponse: {
-                  name: call.functionCall.name,
-                  response: out,
-                },
-              });
-            }
-
-            // Add model response and function responses to conversation
-            currentContents = [
-              ...currentContents,
-              {
-                role: "model",
-                parts: parts,
-              },
-              {
-                role: "user",
-                parts: responseParts,
-              },
-            ];
-            continue;
-          }
-
-          // Get text response
+          // Get text response (no function calling in simplified mode)
           const replyText = parts.find((part) => part.text)?.text || "";
           if (!replyText.trim()) {
             streamTextToClient(
