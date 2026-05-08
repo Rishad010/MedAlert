@@ -996,3 +996,31 @@
 {"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 167.669 ms - 294\u001b[0m","timestamp":"2026-05-06 20:26:16"}
 {"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 23.909 ms - 2090\u001b[0m","timestamp":"2026-05-06 20:26:17"}
 {"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 8.415 ms - 612\u001b[0m","timestamp":"2026-05-06 20:26:28"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-08 12:43:10"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-08 12:43:11"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-08 12:43:11"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-08 12:43:12"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-08 12:45:15"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-08 12:45:16"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-08 12:45:16"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-08 12:45:16"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 244.049 ms - 270\u001b[0m","timestamp":"2026-05-08 12:45:38"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 93.665 ms - 2095\u001b[0m","timestamp":"2026-05-08 12:45:39"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 18.423 ms - 1189\u001b[0m","timestamp":"2026-05-08 12:45:43"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 155.791 ms - 279\u001b[0m","timestamp":"2026-05-08 12:46:00"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 20.811 ms - 793\u001b[0m","timestamp":"2026-05-08 12:46:00"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 149.921 ms - 275\u001b[0m","timestamp":"2026-05-08 12:46:10"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 26.641 ms - 2043\u001b[0m","timestamp":"2026-05-08 12:46:10"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 14.825 ms - 2360\u001b[0m","timestamp":"2026-05-08 12:46:15"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 170.155 ms - 275\u001b[0m","timestamp":"2026-05-08 12:46:24"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 27.755 ms - 2208\u001b[0m","timestamp":"2026-05-08 12:46:24"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 9.532 ms - 1070\u001b[0m","timestamp":"2026-05-08 12:46:29"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 162.765 ms - 277\u001b[0m","timestamp":"2026-05-08 12:46:42"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 27.598 ms - 2354\u001b[0m","timestamp":"2026-05-08 12:46:42"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 10.451 ms - 1914\u001b[0m","timestamp":"2026-05-08 12:46:47"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 171.919 ms - 270\u001b[0m","timestamp":"2026-05-08 12:46:58"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 27.672 ms - 2095\u001b[0m","timestamp":"2026-05-08 12:46:58"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[32m200\u001b[0m 8.349 ms - 1189\u001b[0m","timestamp":"2026-05-08 12:47:00"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 16.164 ms - -\u001b[0m","timestamp":"2026-05-08 12:55:30"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 17.513 ms - -\u001b[0m","timestamp":"2026-05-08 13:07:02"}
+{"level":"http","message":"\u001b[0mGET /api/medicines \u001b[36m304\u001b[0m 6.217 ms - -\u001b[0m","timestamp":"2026-05-08 15:04:58"}
