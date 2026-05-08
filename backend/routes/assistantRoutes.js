@@ -143,7 +143,7 @@ router.post("/chat", protect, async (req, res, next) => {
         ? medicines
             .map(
               (m) =>
-                `- id: ${m._id} | ${m.name} (${m.dosage}) | schedule: ${m.schedule} | stock: ${m.stock}`
+                `- id: ${m._id} | ${m.name} (${m.dosage}) | schedule: ${m.schedule} | stock: ${m.stock}`,
             )
             .join("\n")
         : "No medicines logged yet.";
@@ -160,11 +160,10 @@ router.post("/chat", protect, async (req, res, next) => {
     }));
 
     const candidateModels = [
+      process.env.GEMINI_MODEL || "gemini-1.5-flash",
       "gemini-1.5-flash",
-      process.env.GEMINI_MODEL,
       "gemini-flash-latest",
       "gemini-2.5-flash",
-      "gemini-1.5-pro-latest",
     ].filter(Boolean);
 
     let lastErr;
@@ -191,7 +190,7 @@ router.post("/chat", protect, async (req, res, next) => {
               const out = await dispatchMedicineTool(
                 req.user._id,
                 call.name,
-                call.args
+                call.args,
               );
               if (out.success) medicinesChanged = true;
               parts.push({
@@ -221,7 +220,7 @@ router.post("/chat", protect, async (req, res, next) => {
 
         if (medicinesChanged) {
           res.write(
-            `data: ${JSON.stringify({ invalidateMedicines: true })}\n\n`
+            `data: ${JSON.stringify({ invalidateMedicines: true })}\n\n`,
           );
         }
 
@@ -230,14 +229,14 @@ router.post("/chat", protect, async (req, res, next) => {
         return;
       } catch (err) {
         lastErr = err;
-        
+
         // Full error logging for Render
         console.error(`Gemini API error with model "${modelName}":`, {
           message: err.message,
           stack: err.stack,
           status: err.status,
           statusText: err.statusText,
-          details: err.details
+          details: err.details,
         });
         const msg = String(err?.message || err);
 
@@ -256,16 +255,15 @@ router.post("/chat", protect, async (req, res, next) => {
 
     throw lastErr;
   } catch (err) {
-    
     // Full error logging for Render
     console.error(`Assistant API error:`, {
       message: err.message,
       stack: err.stack,
       status: err.status,
       statusText: err.statusText,
-      details: err.details
+      details: err.details,
     });
-    
+
     logger.error(`Assistant error: ${err.message}`);
     if (!res.headersSent) {
       next(err);
@@ -274,7 +272,7 @@ router.post("/chat", protect, async (req, res, next) => {
         res.write(
           `data: ${JSON.stringify({
             text: "\n\nSomething went wrong. Please try again.",
-          })}\n\n`
+          })}\n\n`,
         );
         res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
         res.end();
