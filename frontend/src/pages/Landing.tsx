@@ -6,7 +6,6 @@ import {
   Menu,
   Package,
   Pill,
-  Play,
   ShieldCheck,
   Sparkles,
   X,
