@@ -1104,3 +1104,7 @@
 {"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-09 01:51:09"}
 {"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-09 01:51:09"}
 {"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-09 01:51:09"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-09 01:56:49"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-09 01:56:50"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-09 01:56:50"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-09 01:56:50"}
