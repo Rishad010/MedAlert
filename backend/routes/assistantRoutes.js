@@ -1,12 +1,17 @@
 // backend/routes/assistantRoutes.js
 import express from "express";
-import { SchemaType, FunctionCallingMode } from "@google/generative-ai";
+import {
+  GoogleGenerativeAI,
+  SchemaType,
+  FunctionCallingMode,
+} from "@google/generative-ai";
 import { protect } from "../middleware/authMiddleware.js";
 import Medicine from "../models/Medicine.js";
 import logger from "../utils/logger.js";
 import { dispatchMedicineTool } from "../utils/assistantMedicineActions.js";
 
 const router = express.Router();
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const medicineToolDeclarations = [
   {
@@ -138,7 +143,7 @@ router.post("/chat", protect, async (req, res, next) => {
         ? medicines
             .map(
               (m) =>
-                `- id: ${m._id} | ${m.name} (${m.dosage}) | schedule: ${m.schedule} | stock: ${m.stock}`,
+                `- id: ${m._id} | ${m.name} (${m.dosage}) | schedule: ${m.schedule} | stock: ${m.stock}`
             )
             .join("\n")
         : "No medicines logged yet.";
@@ -155,84 +160,67 @@ router.post("/chat", protect, async (req, res, next) => {
     }));
 
     const candidateModels = [
-      process.env.GEMINI_MODEL || "gemini-1.5-flash",
-      "gemini-1.5-flash",
+      process.env.GEMINI_MODEL,
+      "gemini-flash-latest",
+      "gemini-2.5-flash",
+      "gemini-1.5-pro-latest",
     ].filter(Boolean);
 
     let lastErr;
     for (const modelName of candidateModels) {
       try {
-        // Build contents with history + current message
-        const contents = [
-          ...geminiHistory,
-          {
-            role: "user",
-            parts: [{ text: message.trim() }],
-          },
-        ];
+        const model = genAI.getGenerativeModel({
+          model: modelName,
+          systemInstruction: systemPrompt,
+          tools,
+          toolConfig,
+        });
 
+        const chat = model.startChat({ history: geminiHistory });
+
+        let result = await chat.sendMessage(message.trim());
         let medicinesChanged = false;
         let guard = 0;
-        let currentContents = contents;
 
         while (guard++ < 10) {
-          const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${process.env.GEMINI_API_KEY}`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                contents: [
-                  ...currentContents.slice(0, -1), // All history except current user message
-                  {
-                    role: "user",
-                    parts: [
-                      {
-                        text: systemPrompt
-                          ? `${systemPrompt}\n\nUser: ${message.trim()}`
-                          : message.trim(),
-                      },
-                    ],
-                  },
-                ],
-                generationConfig: {
-                  temperature: 0.7,
-                  maxOutputTokens: 1024,
+          const calls = result.response.functionCalls?.();
+          if (calls?.length) {
+            const parts = [];
+            for (const call of calls) {
+              const out = await dispatchMedicineTool(
+                req.user._id,
+                call.name,
+                call.args
+              );
+              if (out.success) medicinesChanged = true;
+              parts.push({
+                functionResponse: {
+                  name: call.name,
+                  response: out,
                 },
-              }),
-            },
-          );
-
-          const data = await response.json();
-
-          if (!response.ok) {
-            throw new Error(data.error?.message || "Gemini API error");
+              });
+            }
+            result = await chat.sendMessage(parts);
+            continue;
           }
 
-          const candidate = data.candidates?.[0];
-          if (!candidate) {
-            throw new Error("No candidates returned from Gemini API");
+          let replyText = "";
+          try {
+            replyText = result.response.text() || "";
+          } catch (e) {
+            logger.warn(`Assistant text() error: ${e.message}`);
           }
-
-          const parts = candidate.content?.parts || [];
-          // Get text response (no function calling in simplified mode)
-          const replyText = parts.find((part) => part.text)?.text || "";
           if (!replyText.trim()) {
-            streamTextToClient(
-              res,
-              "I couldn't produce a reply. Try rephrasing, or check that your request is about medicines.",
-            );
-          } else {
-            streamTextToClient(res, replyText);
+            replyText =
+              "I couldn't produce a reply. Try rephrasing, or check that your request is about medicines.";
           }
+          streamTextToClient(res, replyText);
           break;
         }
 
         if (medicinesChanged) {
           res.write(
-            `data: ${JSON.stringify({ invalidateMedicines: true })}\n\n`,
+            `data: ${JSON.stringify({ invalidateMedicines: true })}\n\n`
           );
         }
 
@@ -241,28 +229,7 @@ router.post("/chat", protect, async (req, res, next) => {
         return;
       } catch (err) {
         lastErr = err;
-
-        // Full error logging for Render
-        console.error(`Gemini API error with model "${modelName}":`, {
-          message: err.message,
-          stack: err.stack,
-          status: err.status,
-          statusText: err.statusText,
-          details: err.details,
-        });
         const msg = String(err?.message || err);
-
-        // Check for region restriction error
-        if (
-          msg.includes("400") &&
-          (msg.includes("User location not supported") ||
-            msg.includes("location not supported"))
-        ) {
-          logger.error(`Gemini API region restriction: ${msg}`);
-          throw new Error(
-            "AI assistant is temporarily unavailable in this region.",
-          );
-        }
 
         if (
           msg.includes("404") ||
@@ -279,15 +246,6 @@ router.post("/chat", protect, async (req, res, next) => {
 
     throw lastErr;
   } catch (err) {
-    // Full error logging for Render
-    console.error(`Assistant API error:`, {
-      message: err.message,
-      stack: err.stack,
-      status: err.status,
-      statusText: err.statusText,
-      details: err.details,
-    });
-
     logger.error(`Assistant error: ${err.message}`);
     if (!res.headersSent) {
       next(err);
@@ -296,7 +254,7 @@ router.post("/chat", protect, async (req, res, next) => {
         res.write(
           `data: ${JSON.stringify({
             text: "\n\nSomething went wrong. Please try again.",
-          })}\n\n`,
+          })}\n\n`
         );
         res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
         res.end();

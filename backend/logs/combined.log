@@ -1108,3 +1108,14 @@
 {"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-09 01:56:50"}
 {"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-09 01:56:50"}
 {"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-09 01:56:50"}
+{"level":"error","message":"Assistant model \"gemini-1.5-flash\" failed: models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","timestamp":"2026-05-09 02:00:08"}
+{"level":"error","message":"Assistant model \"gemini-1.5-flash\" failed: models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","timestamp":"2026-05-09 02:00:09"}
+{"level":"error","message":"Assistant error: models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","timestamp":"2026-05-09 02:00:09"}
+{"level":"error","message":"models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","stack":"Error: models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.\n    at file:///C:/Users/user/OneDrive/Documents/WindSurf/MedAlert/Prototype_1/medalert/backend/routes/assistantRoutes.js:211:19\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)","timestamp":"2026-05-09 02:00:09"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[31m500\u001b[0m 866.377 ms - 609\u001b[0m","timestamp":"2026-05-09 02:00:09"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-09 02:04:37"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-09 02:04:38"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-09 02:04:38"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-09 02:04:38"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 35.887 ms - -\u001b[0m","timestamp":"2026-05-09 02:05:09"}
+{"level":"http","message":"\u001b[0mGET /api/auth/me \u001b[36m304\u001b[0m 11.886 ms - -\u001b[0m","timestamp":"2026-05-09 02:05:09"}
