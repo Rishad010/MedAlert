@@ -1059,3 +1059,11 @@
 {"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-06 18:07:46"}
 {"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-06 18:07:46"}
 >>>>>>> 345c96ddc98652a6e69d48634149efd78a4b37b9
+{"level":"info","message":"Server running on port 5000","timestamp":"2026-05-09 00:21:27"}
+{"level":"info","message":"Agenda started (same process as API)","timestamp":"2026-05-09 00:21:28"}
+{"level":"info","message":"Rescheduling all medicine reminders...","timestamp":"2026-05-09 00:21:28"}
+{"level":"info","message":"All medicine reminders rescheduled","timestamp":"2026-05-09 00:21:29"}
+{"level":"http","message":"\u001b[0mPOST /api/auth/login \u001b[32m200\u001b[0m 249.714 ms - 270\u001b[0m","timestamp":"2026-05-09 00:21:57"}
+{"level":"http","message":"\u001b[0mGET /api/dashboard \u001b[32m200\u001b[0m 73.562 ms - 2108\u001b[0m","timestamp":"2026-05-09 00:21:57"}
+{"level":"error","message":"Assistant model \"gemini-1.5-flash\" failed: [GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent: [404 Not Found] models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.","timestamp":"2026-05-09 00:22:06"}
+{"level":"http","message":"\u001b[0mPOST /api/assistant/chat \u001b[32m200\u001b[0m 2110.839 ms - -\u001b[0m","timestamp":"2026-05-09 00:22:07"}
