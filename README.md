@@ -1,7 +1,7 @@
 # 🏥 MedAlert — Smart Medicine Reminder & Stock Alert
 
 <p align="center">
-  <a href="https://medalert.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-View%20App-blue?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
+  <a href="https://med-alert-coral.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-View%20App-blue?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
   <a href="https://github.com/Rishad010/MedAlert/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Rishad010/MedAlert/ci.yml?branch=main&style=for-the-badge&label=CI%20Status" alt="CI Status"></a>
   <img src="https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react" alt="React">
   <img src="https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js" alt="Node.js">
