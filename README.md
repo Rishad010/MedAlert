@@ -1,12 +1,14 @@
 # 🏥 MedAlert — Smart Medicine Reminder & Stock Alert
 
 <p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Live%20Demo-View%20App-blue?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
+  <a href="https://medalert.vercel.app"><img src="https://img.shields.io/badge/Live%20Demo-View%20App-blue?style=for-the-badge&logo=vercel" alt="Live Demo"></a>
   <a href="https://github.com/Rishad010/MedAlert/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/Rishad010/MedAlert/ci.yml?branch=main&style=for-the-badge&label=CI%20Status" alt="CI Status"></a>
-  <a href="#-tech-stack"><img src="https://img.shields.io/badge/Tech%20Stack-MERN-green?style=for-the-badge&logo=mongodb" alt="Tech Stack"></a>
+  <img src="https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react" alt="React">
+  <img src="https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js" alt="Node.js">
+  <img src="https://img.shields.io/badge/MongoDB-Atlas-green?style=for-the-badge&logo=mongodb" alt="MongoDB">
+  <img src="https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Tailwind-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS">
 </p>
-
-> **Live Demo:** _Coming soon after deployment_
 
 A full-stack MERN web application that helps users manage their medication schedules, track medicine stock levels, and receive timely reminders via push notifications, email, and SMS.
 
@@ -18,6 +20,7 @@ A full-stack MERN web application that helps users manage their medication sched
 - [🛠️ Tech Stack](#tech-stack)
 - [🏗️ Architecture](#architecture)
 - [✨ Features](#features)
+- [🎯 Try Demo](#-try-demo)
 - [📸 Screenshots](#screenshots)
 - [📡 API Reference](#api-reference)
 - [🚀 Local Setup](#local-setup)
@@ -63,6 +66,17 @@ flowchart LR
     API --> AI[Google Gemini AI]
     GHA[GitHub Actions] --> TESTS[Run Backend + Frontend Tests<br/>on every push]
 ```
+
+**System Overview:**
+
+- **Frontend:** React 19 + TypeScript SPA with Tailwind CSS
+- **Backend:** Express.js REST API with JWT authentication
+- **Database:** MongoDB Atlas with Mongoose ODM
+- **Job Scheduler:** Agenda for reminder notifications
+- **Notifications:** Multi-channel (Push, Email, SMS)
+- **AI Assistant:** Google Gemini with medicine-specific tools
+- **CI/CD:** GitHub Actions for automated testing
+- **Deployment:** Render (backend) + Vercel (frontend)
 
 ---
 
@@ -119,17 +133,39 @@ flowchart LR
 
 ---
 
+## 🎯 Try Demo
+
+Experience MedAlert instantly with our demo accounts - no signup required!
+
+### 👤 User Demo
+
+- **Email:** `demo@medalert.app`
+- **Password:** `demo123`
+- **Access:** Full user experience with medicines, reminders, and dashboard
+
+### 🔐 Admin Demo
+
+- **Email:** `admin@medalert.app`
+- **Password:** `admin123`
+- **Access:** Admin panel with pharmacy order management
+
+[**🚀 Try Live Demo →**](https://medalert.vercel.app)
+
+---
+
 ## 📸 Screenshots
 
-| Landing Page             | Dashboard                |
-| ------------------------ | ------------------------ |
-| _Screenshot coming soon_ | _Screenshot coming soon_ |
+| Dashboard                                 | AI Assistant (MedBot)                     |
+| ----------------------------------------- | ----------------------------------------- |
+| ![Dashboard](./screenshots/dashboard.png) | ![AI Assistant](./screenshots/medbot.png) |
 
-| Add Medicine             | AI Assistant             |
-| ------------------------ | ------------------------ |
-| _Screenshot coming soon_ | _Screenshot coming soon_ |
+| Medicine Management                       | Admin Panel                             |
+| ----------------------------------------- | --------------------------------------- |
+| ![Medicines](./screenshots/medicines.png) | ![Admin Panel](./screenshots/admin.png) |
 
-> **Note:** Add screenshots by replacing the placeholder text with: `![Description](./screenshots/filename.png)` after taking screenshots of the live app.
+| Landing Page                          | Mobile Responsive                   |
+| ------------------------------------- | ----------------------------------- |
+| ![Landing](./screenshots/landing.png) | ![Mobile](./screenshots/mobile.png) |
 
 ---
 
@@ -168,26 +204,63 @@ flowchart LR
 - MongoDB (local or Atlas)
 - Git
 
-### Steps
+### Quick Start
 
-1. Clone the repo.
-2. Set up backend:
-   - `cd backend`
-   - Copy `.env.example` to `.env`
-   - Fill in required values
-   - `npm install`
-   - `npm run seed` (optional)
-3. Set up frontend:
-   - `cd frontend`
-   - Copy `.env.example` to `.env`
-   - Fill in `VITE_API_URL=http://localhost:5000/api` and `VITE_VAPID_PUBLIC_KEY`
-   - `npm install`
-4. Run backend in two terminals:
-   - `npm run dev`
-   - `npm run dev:worker`
-5. Run frontend:
-   - `npm run dev`
-6. Open `http://localhost:5173`
+```bash
+# Clone and setup
+git clone https://github.com/Rishad010/MedAlert.git
+cd MedAlert
+
+# Backend setup
+cd backend
+cp .env.example .env
+# Edit .env with your MongoDB URI and other keys
+npm install
+npm run seed:demo  # Adds demo user with sample data
+
+# Frontend setup
+cd ../frontend
+cp .env.example .env
+# Edit .env with VITE_API_URL=http://localhost:5000/api
+npm install
+
+# Start services (3 terminals)
+# Terminal 1: Backend API
+cd backend && npm run dev
+
+# Terminal 2: Background worker
+cd backend && npm run dev:worker
+
+# Terminal 3: Frontend
+cd frontend && npm run dev
+```
+
+Visit `http://localhost:5173` and use demo credentials:
+
+- **User:** demo@medalert.app / demo123
+- **Admin:** admin@medalert.app / admin123
+
+### Environment Variables
+
+**Backend (.env):**
+
+```bash
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/medalert
+JWT_SECRET=your_jwt_secret
+GEMINI_API_KEY=your_gemini_key
+VAPID_PUBLIC_KEY=your_vapid_public_key
+VAPID_PRIVATE_KEY=your_vapid_private_key
+GMAIL_USER=your_gmail@gmail.com
+GMAIL_APP_PASSWORD=your_app_password
+```
+
+**Frontend (.env):**
+
+```bash
+VITE_API_URL=http://localhost:5000/api
+VITE_VAPID_PUBLIC_KEY=your_vapid_public_key
+```
 
 > **VAPID key generation:** `npx web-push generate-vapid-keys`
 
